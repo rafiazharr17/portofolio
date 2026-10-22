@@ -24,6 +24,17 @@ export function useTheme() {
     setThemeState(initialTheme);
     document.documentElement.dataset.theme = initialTheme;
     setMounted(true);
+
+    const observer = new MutationObserver(() => {
+      const current = (document.documentElement.dataset.theme as Theme) || "dark";
+      setThemeState(current);
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const setTheme = (newTheme: Theme) => {

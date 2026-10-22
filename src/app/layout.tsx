@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { LanguageProvider } from "@/hooks/use-language";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -104,7 +105,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased bg-[var(--background)] text-[var(--foreground)] selection:bg-[#1A6EF7] selection:text-white">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
