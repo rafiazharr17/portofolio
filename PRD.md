@@ -11,7 +11,7 @@
 
 Portfolio pribadi Rafi Alif Azhar akan dibangun ulang menggunakan Next.js dari website HTML, CSS, dan JavaScript saat ini. Website berfungsi sebagai profil profesional, showcase proyek, bukti kompetensi, pengalaman, serta kanal kontak untuk recruiter, perusahaan, dan calon klien.
 
-Versi baru harus mempertahankan informasi inti dan fitur yang masih relevan dari website lama, sekaligus meningkatkan struktur kode, performa, aksesibilitas, SEO, responsivitas, dan pengalaman visual. Website akan memiliki visual modern dengan aksen biru dan elemen 3D berbasis Three.js yang digunakan secara terukur, bukan sampai mengganggu keterbacaan atau performa.
+Versi baru harus mempertahankan informasi inti dan fitur yang masih relevan dari website lama, sekaligus meningkatkan struktur kode, performa, aksesibilitas, SEO, responsivitas, dan pengalaman visual. Website akan memiliki pengalaman visual immersive dengan scene 3D berbasis Three.js yang terintegrasi dengan alur halaman. Animasi 3D harus scroll-driven: posisi kamera, transformasi objek, transisi antar-scene, dan elemen visual berubah mengikuti progres scroll. Visual mengambil inspirasi dari referensi Musée dan David Heckhoff, tetapi konsep, komposisi, konten, dan identitasnya dibuat khusus untuk portofolio Rafi.
 
 ## 2. Latar Belakang dan Masalah
 
@@ -67,7 +67,9 @@ Migrasi ke Next.js ditujukan untuk:
 - Download CV dalam format PDF.
 - Toggle bahasa Indonesia / English.
 - Toggle light / dark mode.
-- Animasi ringan dan efek 3D Three.js yang bersifat dekoratif.
+- Pengalaman 3D scroll-driven menggunakan Three.js/React Three Fiber dan GSAP ScrollTrigger (atau pendekatan setara yang dipilih secara konsisten).
+- Storyboard visual per chapter: Hero, About, Skills, Projects, Experience/Certificates, dan Contact.
+- Pergerakan kamera, objek, pencahayaan, serta transisi visual yang disinkronkan dengan progres scroll.
 - Responsive layout untuk desktop, tablet, dan mobile.
 - SEO metadata dan deployment Vercel.
 - Fallback jika foto, preview proyek, atau WebGL tidak tersedia.
@@ -80,6 +82,7 @@ Migrasi ke Next.js ditujukan untuk:
 - Blog atau sistem artikel.
 - Analytics berbayar atau pelacakan pengguna yang invasif.
 - 3D scene kompleks yang wajib dimuat sebelum halaman dapat digunakan.
+- Interaksi 3D yang menjadi satu-satunya cara untuk membaca konten atau menavigasi website.
 
 Kontak pada MVP dapat menggunakan `mailto:` dan tautan sosial yang sudah diverifikasi. Form server-side baru ditambahkan jika ada kebutuhan dan layanan pengiriman yang dipilih.
 
@@ -181,14 +184,27 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - Perubahan tema harus berlaku konsisten untuk semua section, komponen, dan elemen 3D yang relevan.
 - Hindari kilatan tema yang salah saat halaman pertama kali dimuat.
 
-### FR-10 — Motion dan Three.js
-- Elemen 3D berfungsi sebagai visual pendukung, misalnya objek abstrak, titik/partikel, wireframe, atau bentuk geometris di area Hero.
-- Scene tidak boleh menutupi teks atau menangkap klik pada CTA.
-- Sediakan fallback visual non-WebGL.
-- Hormati `prefers-reduced-motion`.
-- Kurangi kompleksitas atau nonaktifkan scene pada perangkat dengan kemampuan terbatas bila diperlukan.
-- Bersihkan renderer, event listener, observer, dan animation loop saat komponen dilepas.
-- Three.js dimuat secara client-side dan tidak menjadi syarat untuk merender konten utama.
+### FR-10 — Pengalaman 3D Scroll-Driven
+- Scene 3D adalah bagian utama identitas visual, bukan hanya ornamen yang bergerak otomatis di Hero.
+- Progres scroll harus mengendalikan animasi: posisi/rotasi kamera, posisi dan skala objek, perubahan komposisi, pencahayaan, serta transisi antar-chapter.
+- Animasi harus scrubbed atau dipetakan ke progres scroll sehingga scroll ke bawah menjalankan adegan ke depan dan scroll ke atas mengembalikan adegan secara koheren. Hindari animasi yang hanya berjalan berdasarkan timer dan tidak sinkron dengan posisi scroll.
+- Gunakan storyboard minimal berikut sebagai acuan; detail visual boleh disempurnakan selama fungsi setiap chapter tetap terjaga:
+  1. **Hero / Entry:** dunia 3D memperkenalkan identitas Rafi, dengan kamera bergerak masuk atau mengorbit perlahan; judul, role, dan CTA tetap mudah dibaca.
+  2. **About:** kamera berpindah ke area/objek yang merepresentasikan profil dan perjalanan developer.
+  3. **Skills:** node teknologi, modul, atau elemen visual terhubung muncul/tersusun sesuai scroll.
+  4. **Projects:** menjadi chapter visual utama; kartu/panel proyek masuk ke fokus kamera satu per satu atau melalui transisi ruang yang terencana, dengan judul, deskripsi, stack, dan tautan proyek yang tetap berupa HTML interaktif.
+  5. **Experience & Certificates:** kamera bergerak ke area berikutnya dan elemen timeline/credential ditampilkan secara terstruktur.
+  6. **Contact / Outro:** scene merangkum dunia visual dan mengarahkan perhatian ke CTA kontak.
+- Setiap chapter harus memiliki rentang scroll yang jelas dan transisi yang halus; hindari kamera bergerak terlalu cepat, gerakan tanpa tujuan, atau perpindahan yang membuat pengguna kehilangan konteks.
+- Gunakan GSAP ScrollTrigger atau solusi scroll-driven setara. Pilih satu pendekatan utama untuk mengorkestrasi timeline; hindari menumpuk beberapa library animasi untuk pekerjaan yang sama.
+- Teks, tombol, link, dan konten utama harus tetap berupa DOM/HTML semantik, bukan dirender sebagai tekstur di dalam canvas.
+- Scene tidak boleh menutupi teks atau menangkap klik pada CTA. Interaksi pointer pada canvas tidak boleh mengganggu scroll normal.
+- Sediakan fallback non-WebGL yang mempertahankan urutan konten dan identitas visual dasar.
+- Hormati `prefers-reduced-motion`: nonaktifkan scrub/transisi besar atau sediakan pengalaman alternatif yang lebih tenang.
+- Kurangi detail, partikel, resolusi render, atau gunakan versi scene yang lebih sederhana pada perangkat mobile/perangkat berkemampuan terbatas.
+- Three.js dimuat secara client-side dan lazy-loaded; konten utama tetap dapat dibaca sebelum scene siap atau jika WebGL tidak tersedia.
+- Bersihkan renderer, event listener, observer, timeline, dan animation loop saat komponen dilepas; hindari memory leak saat navigasi atau resize.
+- Perubahan scroll harus tetap stabil pada refresh di tengah halaman, deep link/anchor navigation, resize, dan perubahan orientasi layar.
 
 ### FR-11 — Contact dan External Links
 - Email membuka aplikasi email melalui `mailto:`.
@@ -206,10 +222,12 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 
 ### NFR-01 — Performa
 - Utamakan Server Components untuk konten statis.
-- Gunakan Client Components hanya untuk interaksi yang membutuhkan state, browser API, atau WebGL.
+- Gunakan Client Components hanya untuk interaksi yang membutuhkan state, browser API, animasi scroll, atau WebGL.
 - Gunakan `next/image` untuk gambar yang sesuai.
-- Lazy-load scene Three.js dan komponen yang berat.
+- Lazy-load scene Three.js dan komponen yang berat; jangan memblokir render konten teks utama.
+- Batasi jumlah objek, material, tekstur, shadow, partikel, dan draw calls; gunakan model/tekstur teroptimasi jika aset eksternal digunakan.
 - Hindari memuat banyak library animasi yang melakukan fungsi serupa.
+- Scene 3D harus menjaga scroll tetap responsif dan tidak menyebabkan long task berkepanjangan; uji pada perangkat mobile nyata atau emulasi throttling.
 - Target Core Web Vitals: LCP ≤ 2.5 detik, INP ≤ 200 ms, CLS ≤ 0.1 pada kondisi pengukuran yang layak. Ini merupakan target, bukan jaminan otomatis.
 
 ### NFR-02 — Responsivitas
@@ -224,7 +242,7 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - Kontras teks memenuhi WCAG AA sejauh memungkinkan.
 - Jangan mengandalkan warna saja untuk menunjukkan status.
 - Hormati `prefers-reduced-motion`.
-- Scene dekoratif diberi `aria-hidden="true"` dan tidak masuk urutan fokus.
+- Canvas 3D yang bersifat visual diberi `aria-hidden="true"` dan tidak masuk urutan fokus; seluruh informasi dan kontrol penting tetap tersedia di DOM semantik.
 
 ### NFR-04 — Keamanan dan privasi
 - Tidak menyimpan rahasia di client-side.
@@ -243,8 +261,9 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - **Framework:** Next.js App Router
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **3D:** Three.js; React Three Fiber dan Drei boleh dipakai jika memang menyederhanakan integrasi React
-- **Animation:** CSS transitions / Framer Motion hanya jika diperlukan; pilih solusi minimal
+- **3D:** Three.js dengan React Three Fiber dan Drei bila menyederhanakan integrasi React
+- **Scroll animation:** GSAP + ScrollTrigger sebagai pilihan utama untuk timeline yang tersinkron dengan scroll; jangan menambahkan library scroll-animation lain tanpa alasan kuat
+- **UI motion:** CSS transitions untuk interaksi kecil; Framer Motion hanya bila ada kebutuhan UI yang tidak ditangani dengan baik oleh GSAP/CSS
 - **Icons:** Lucide React atau SVG yang konsisten
 - **Images:** `next/image`
 - **Hosting:** Vercel
@@ -292,8 +311,17 @@ src/
       project-card.tsx
       skill-chip.tsx
     three/
-      hero-scene.tsx
-      three-fallback.tsx
+      portfolio-scene.tsx
+      scene-canvas.tsx
+      scene-fallback.tsx
+      scroll-scene-controller.tsx
+      chapters/
+        hero-chapter.tsx
+        about-chapter.tsx
+        skills-chapter.tsx
+        projects-chapter.tsx
+        experience-chapter.tsx
+        contact-chapter.tsx
   data/
     profile.ts
     projects.ts
@@ -304,19 +332,85 @@ src/
   hooks/
     use-theme.ts
     use-language.ts
+  lib/
+    motion-config.ts
+    three-config.ts
 ```
 
-Struktur ini merupakan rekomendasi; boleh disesuaikan selama pemisahan tanggung jawab tetap jelas.
+Struktur ini merupakan rekomendasi; boleh disesuaikan selama pemisahan tanggung jawab tetap jelas. Implementasi boleh menggunakan satu canvas persisten untuk beberapa chapter atau beberapa scene yang ditukar secara terkontrol; pilih berdasarkan performa dan kemudahan sinkronisasi scroll, bukan sekadar jumlah komponen.
 
-## 11. Deployment dan Environment
+## 11. Git Ignore, Deployment, dan Environment
+
+### 11.1 File `.gitignore` wajib
+
+Repository harus memiliki file `.gitignore` di root project. Minimal, gunakan aturan berikut dan sesuaikan jika struktur project membutuhkan pengecualian tambahan:
+
+```gitignore
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Next.js build output
+/.next/
+/out/
+/build/
+
+# Production build output
+/dist/
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Deployment/platform local state
+.vercel
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript build cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Test and coverage output
+/coverage/
+/playwright-report/
+/test-results/
+
+# Local-only notes or temporary files
+*.local
+*.tmp
+```
+
+Ketentuan `.gitignore`:
+- Jangan commit `node_modules`, `.next`, output build, cache, log, atau file environment berisi rahasia.
+- Sediakan `.env.example` hanya jika ada environment variable yang benar-benar diperlukan; isi dengan nama variabel dan nilai contoh non-rahasia, bukan credential asli.
+- Jangan mengabaikan aset portfolio yang memang dibutuhkan website, seperti gambar, model 3D, tekstur, CV publik, dan file di `public/`. Optimalkan ukuran aset sebelum commit.
+- Jika file rahasia pernah terlanjur di-commit, menambahkannya ke `.gitignore` saja tidak menghapusnya dari riwayat Git; cabut/rotasi secret dan bersihkan riwayat bila diperlukan.
+
+### 11.2 Deployment dan environment
 
 - Repository dihubungkan ke Vercel.
 - Framework preset Next.js harus terdeteksi dengan benar.
 - Build command dan output directory mengikuti default Next.js kecuali ada alasan kuat untuk mengubahnya.
 - Domain produksi dan `metadataBase` diatur setelah domain final diketahui.
 - File CV, foto, preview, dan aset lainnya disimpan di `public/` dengan path yang konsisten.
-- Tidak diperlukan environment variable untuk fitur statis MVP.
-- Setelah deployment, verifikasi halaman production, metadata, tautan, gambar, mode tema, bahasa, dan tampilan mobile.
+- Tidak diperlukan environment variable untuk fitur statis MVP. Jika fitur tambahan membutuhkannya, daftarkan variabel yang dibutuhkan di Vercel dan dokumentasikan nama variabelnya di `.env.example` tanpa secret.
+- Setelah deployment, verifikasi halaman production, metadata, tautan, gambar, model/tekstur 3D, mode tema, bahasa, animasi scroll, dan tampilan mobile.
 
 ## 12. Acceptance Criteria
 
@@ -329,7 +423,11 @@ Struktur ini merupakan rekomendasi; boleh disesuaikan selama pemisahan tanggung 
 - [ ] Tombol download CV menunjuk ke PDF yang benar.
 - [ ] Link email, GitHub, demo, dan repository sudah diverifikasi.
 - [ ] Layout berjalan di mobile, tablet, dan desktop tanpa overflow horizontal.
-- [ ] Scene Three.js memiliki fallback, tidak menghalangi konten, dan menghormati reduced motion.
+- [ ] Animasi 3D mengikuti progres scroll dan bisa bergerak maju/mundur saat pengguna scroll ke bawah/atas.
+- [ ] Setiap chapter utama memiliki transisi kamera/objek yang dirancang, termasuk chapter Projects sebagai fokus visual.
+- [ ] Konten teks dan CTA tetap HTML semantik, dapat diakses, dan tidak bergantung pada canvas.
+- [ ] Scene Three.js memiliki fallback, tidak menghalangi konten, menghormati reduced motion, dan tetap usable pada mobile.
+- [ ] `.gitignore` tersedia di root dan mengabaikan dependency, build output, cache, log, dan environment secrets tanpa mengabaikan aset publik yang diperlukan.
 - [ ] Metadata SEO dan social sharing tersedia.
 - [ ] `npm run build` berhasil.
 - [ ] Deployment Vercel berhasil dan semua aset tersedia di production.
@@ -341,21 +439,23 @@ Struktur ini merupakan rekomendasi; boleh disesuaikan selama pemisahan tanggung 
 2. **Project setup** — Next.js App Router, TypeScript, Tailwind, linting, dan struktur folder.
 3. **Core layout** — metadata, font, navbar, footer, container, dan design tokens.
 4. **Content sections** — hero, about, projects, certificates, experience, testimonials, contact.
-5. **Interactions** — filter proyek, bahasa, tema, mobile nav, dan animasi ringan.
-6. **Three.js** — implementasi scene dekoratif yang lazy-loaded dan memiliki fallback.
-7. **Quality checks** — responsivitas, aksesibilitas, SEO, tautan, dan build.
-8. **Vercel deployment** — deploy preview, QA, lalu production.
+5. **Interactions** — filter proyek, bahasa, tema, mobile nav, dan interaksi UI.
+6. **Scroll-driven 3D** — bangun storyboard chapter, scene/camera rig, timeline GSAP ScrollTrigger, sinkronisasi dengan scroll, fallback, serta reduced-motion/mobile mode.
+7. **Repository hygiene** — tambahkan dan verifikasi `.gitignore`; pastikan tidak ada secrets atau build artifacts yang ikut dilacak.
+8. **Quality checks** — responsivitas, aksesibilitas, SEO, tautan, performa scene, dan production build.
+9. **Vercel deployment** — deploy preview, QA seluruh chapter scroll di desktop/mobile, lalu production.
 
 ## 14. Risiko dan Mitigasi
 
 | Risiko | Mitigasi |
 |---|---|
-| Three.js menambah beban halaman | Lazy-load, kurangi objek, fallback statis, evaluasi perangkat mobile |
+| Scene scroll-driven terlalu berat | Lazy-load, optimalkan geometri/tekstur, batasi shadow dan partikel, sederhanakan scene di mobile, sediakan fallback |
 | Tema atau bahasa menyebabkan hydration mismatch | Render state awal yang konsisten dan sinkronkan preferensi setelah mount atau gunakan strategi cookie yang tepat |
 | Aset lama tidak ikut dipindahkan | Audit semua path relatif dan pindahkan aset ke `public/` |
 | Link demo/repository sudah berubah | Verifikasi setiap URL sebelum rilis |
 | Konten profesional tidak lagi akurat | Konfirmasi angka, status, periode, dan klaim kepada pemilik |
-| Motion mengganggu pengguna | Hormati reduced motion dan sediakan pengalaman tanpa animasi |
+| Scroll animation mengganggu pengguna atau mengacaukan navigasi | Gunakan scrub yang stabil, sediakan reduced-motion mode, pastikan anchor/deep link dan scroll ke atas tetap berfungsi |
+| File rahasia atau artefak build masuk repository | Terapkan `.gitignore`, audit `git status`, dan gunakan `.env.example` tanpa credential |
 | Metadata masih memakai URL GitHub Pages | Perbarui canonical dan metadataBase setelah domain Vercel/domain custom ditetapkan |
 
 ## 15. Keputusan yang Masih Perlu Dikonfirmasi
@@ -366,4 +466,4 @@ Struktur ini merupakan rekomendasi; boleh disesuaikan selama pemisahan tanggung 
 - Aset final untuk foto profil, sertifikat, preview proyek, dan CV.
 - Tingkat kompleksitas scene Three.js yang sesuai dengan performa target.
 
-**Prinsip utama:** konten profesional dan kemudahan menghubungi pemilik portfolio lebih penting daripada efek visual. Three.js harus memperkuat identitas visual tanpa mengorbankan performa, aksesibilitas, atau kejelasan informasi.
+**Prinsip utama:** pengalaman 3D yang mengikuti scroll adalah ciri visual utama portofolio, tetapi tidak boleh menghalangi tujuan profesional website. Setiap gerakan kamera dan objek harus mendukung narasi profil serta karya Rafi; konten, navigasi, dan CTA harus tetap jelas, aksesibel, dan tersedia meskipun WebGL atau animasi dinonaktifkan.

@@ -1,0 +1,48 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Next.js build output
+/.next/
+/out/
+/build/
+
+# Production build output
+/dist/
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Deployment/platform local state
+.vercel
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript build cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Test and coverage output
+/coverage/
+/playwright-report/
+/test-results/
+
+# Local-only notes or temporary files
+*.local
+*.tmp
