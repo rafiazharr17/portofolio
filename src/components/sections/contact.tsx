@@ -45,7 +45,7 @@ export function ContactSection() {
                 : "Have an opening or project inquiry?"}
             </h3>
 
-            <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
+            <p className="text-base text-[var(--foreground)]/90 leading-relaxed mb-8">
               {lang === "id"
                 ? "Hubungi saya langsung melalui email untuk membahas kerja sama penuh waktu (Full-Time), freelance enterprise, atau diskusi teknis rekayasa sistem web."
                 : "Reach out directly via email to explore full-time engineering roles, enterprise freelance opportunities, or technical system discussions."}

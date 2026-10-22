@@ -64,7 +64,7 @@ export function AboutSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left Column: Bio Paragraphs */}
-        <div className="lg:col-span-7 space-y-5 text-base sm:text-lg text-[var(--muted)] leading-relaxed">
+        <div className="lg:col-span-7 space-y-5 text-base sm:text-lg text-[var(--foreground)]/90 leading-relaxed">
           <p className="text-[var(--foreground)] font-medium">
             {mounted ? t.about_p1 : ""}
           </p>

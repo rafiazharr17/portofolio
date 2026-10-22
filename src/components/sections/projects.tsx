@@ -177,7 +177,7 @@ function FeaturedProjectSpotlight({
               {subtitle}
             </p>
 
-            <p className="text-sm text-[var(--muted)] leading-relaxed">
+            <p className="text-sm text-[var(--foreground)]/90 leading-relaxed">
               {description}
             </p>
           </div>

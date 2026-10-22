@@ -74,7 +74,7 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
           <p className="text-xs font-medium text-[var(--primary)] mt-1 mb-3">
             {subtitle}
           </p>
-          <p className="text-sm text-[var(--muted)] leading-relaxed line-clamp-3">
+          <p className="text-sm text-[var(--foreground)]/85 leading-relaxed line-clamp-3">
             {description}
           </p>
         </div>
@@ -85,7 +85,7 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--surface-muted)] text-[var(--muted)] border border-[var(--border)]"
+                className="px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--surface-muted)] text-[var(--foreground)]/90 border border-[var(--border)]"
               >
                 {tech}
               </span>

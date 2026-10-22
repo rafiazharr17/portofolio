@@ -27,6 +27,37 @@ export interface ProjectItem {
 
 export const projectsData: ProjectItem[] = [
   {
+    id: "tkq-annaurah",
+    type: "fullstack",
+    year: "2026",
+    title: "Website TKQ An Naurah",
+    subtitle: {
+      id: "Website Resmi & Sistem Informasi PPDB Online",
+      en: "Official Website & Online PPDB Information System",
+    },
+    description: {
+      id: "Website resmi TKQ An Naurah dengan profil lembaga dan sistem PPDB online berbasis React, Express.js, Node.js, dan MySQL.",
+      en: "Official TKQ An Naurah website with institutional information and an online PPDB system built with React, Express.js, Node.js, and MySQL.",
+    },
+    stack: [
+      "React.js",
+      "Vite",
+      "Express.js",
+      "Node.js",
+      "MySQL",
+      "Tailwind CSS",
+      "JWT",
+    ],
+    image: "/images/projects/tkq-annaurah.jpeg",
+    fallbackTitle: "Website TKQ An Naurah",
+    fallbackHint: {
+      id: "Portal sekolah & PPDB online",
+      en: "School portal & online admissions",
+    },
+    demoUrl: "https://annaurahislamicschool.sch.id/",
+    featured: true,
+  },
+  {
     id: "mis-asset",
     type: "fullstack",
     year: "2026",
@@ -108,37 +139,6 @@ export const projectsData: ProjectItem[] = [
       id: "Sistem monitoring industri",
       en: "Industrial monitoring system",
     },
-    featured: true,
-  },
-  {
-    id: "tkq-annaurah",
-    type: "fullstack",
-    year: "2026",
-    title: "Website TKQ An Naurah",
-    subtitle: {
-      id: "Website Resmi & Sistem Informasi PPDB Online",
-      en: "Official Website & Online PPDB Information System",
-    },
-    description: {
-      id: "Website resmi TKQ An Naurah dengan profil lembaga dan sistem PPDB online berbasis React, Express.js, Node.js, dan MySQL.",
-      en: "Official TKQ An Naurah website with institutional information and an online PPDB system built with React, Express.js, Node.js, and MySQL.",
-    },
-    stack: [
-      "React.js",
-      "Vite",
-      "Express.js",
-      "Node.js",
-      "MySQL",
-      "Tailwind CSS",
-      "JWT",
-    ],
-    image: "/images/projects/tkq-annaurah.jpeg",
-    fallbackTitle: "Website TKQ An Naurah",
-    fallbackHint: {
-      id: "Portal sekolah & PPDB online",
-      en: "School portal & online admissions",
-    },
-    demoUrl: "https://annaurahislamicschool.sch.id/",
     featured: true,
   },
   {

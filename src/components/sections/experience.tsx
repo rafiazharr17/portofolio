@@ -56,7 +56,7 @@ export function ExperienceSection() {
                   </span>
                 </div>
 
-                <ul className="space-y-2.5 text-sm text-[var(--muted)] leading-relaxed">
+                <ul className="space-y-2.5 text-sm text-[var(--foreground)]/90 leading-relaxed">
                   {item.points.map((pt, idx) => (
                     <li key={idx} className="flex items-start gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] mt-2 shrink-0" />
