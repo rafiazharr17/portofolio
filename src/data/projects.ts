@@ -147,8 +147,8 @@ export const projectsData: ProjectItem[] = [
     year: "2026",
     title: "School Management App",
     subtitle: {
-      id: "Final Project — Universitas Muhammadiyah Yogyakarta",
-      en: "Final Project — Universitas Muhammadiyah Yogyakarta",
+      id: "Final Project, Universitas Muhammadiyah Yogyakarta",
+      en: "Final Project, Universitas Muhammadiyah Yogyakarta",
     },
     description: {
       id: "Aplikasi manajemen sekolah untuk PPDB online, penjadwalan, dan pengelolaan nilai dengan validasi Black Box Testing dan SUS.",
@@ -167,8 +167,8 @@ export const projectsData: ProjectItem[] = [
     year: "2025",
     title: "Queue Management App",
     subtitle: {
-      id: "Magang — Diskominfo Kab. Bantul",
-      en: "Internship — Bantul Regency Dept. of Communications & IT",
+      id: "Magang, Diskominfo Kab. Bantul",
+      en: "Internship, Bantul Regency Dept. of Communications & IT",
     },
     description: {
       id: "Aplikasi antrean layanan publik real-time berbasis WebSocket dengan backend Node.js dan antarmuka React.js.",
@@ -185,7 +185,7 @@ export const projectsData: ProjectItem[] = [
     id: "materiku",
     type: "fullstack",
     year: "2025",
-    title: "MateriKu — Learning Platform",
+    title: "MateriKu: Learning Platform",
     subtitle: {
       id: "Full Stack Web Developer",
       en: "Full Stack Web Developer",
@@ -195,7 +195,7 @@ export const projectsData: ProjectItem[] = [
       en: "Centralized LMS platform using Laravel, MySQL, and Tailwind CSS with secure Laravel Breeze authentication and RBAC for 3 user roles.",
     },
     stack: ["Laravel", "Breeze", "MySQL", "Tailwind CSS"],
-    fallbackTitle: "MateriKu — Learning Platform",
+    fallbackTitle: "MateriKu: Learning Platform",
     fallbackHint: {
       id: "Platform e-learning terpadu",
       en: "Integrated e-learning platform",

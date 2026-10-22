@@ -49,11 +49,11 @@ export function CertificateModal({
       onClick={onClose}
     >
       <div
-        className="relative max-w-4xl w-full max-h-[90vh] bg-[var(--surface)] rounded-2xl overflow-hidden border border-[var(--border)] shadow-2xl flex flex-col"
+        className="relative max-w-4xl w-full max-h-[90vh] bg-[var(--surface)] rounded-xl overflow-hidden border border-[var(--border)] shadow-xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)] bg-[var(--surface-muted)]/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)] bg-[var(--surface-muted)]">
           <div className="pr-4">
             <span className="text-[10px] font-mono tracking-widest text-[var(--primary)] uppercase block">
               Dokumen Kredensial
@@ -66,9 +66,9 @@ export function CertificateModal({
             type="button"
             onClick={onClose}
             aria-label="Tutup sertifikat"
-            className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface-muted)] flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface-muted)] flex items-center justify-center transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 

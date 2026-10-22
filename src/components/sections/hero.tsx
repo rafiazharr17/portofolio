@@ -68,23 +68,18 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Text & CTAs */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            {/* Availability status badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono font-medium tracking-wide mb-6 shadow-xs">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+            {/* Availability status badge - solid crisp indicator, no pulsing ping */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-[var(--border)] bg-[var(--surface)] text-xs font-mono font-medium text-[var(--foreground)] mb-6 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>{mounted ? t.hero_available : profileData.status.id}</span>
             </div>
 
-            {/* Title with Gradient & Negative letter-spacing */}
+            {/* Title with solid typography, no generic gradient text clip */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[var(--foreground)] leading-[1.1]">
-              <span className="text-[var(--muted)] text-2xl sm:text-3xl block font-semibold mb-2 font-mono">
+              <span className="text-[var(--muted)] text-xl sm:text-2xl block font-semibold mb-2 font-mono">
                 {mounted ? t.hero_title_prefix : "Halo, saya"}
               </span>
-              <span className="bg-gradient-to-r from-[var(--foreground)] via-[var(--foreground)] to-[var(--primary)] bg-clip-text">
-                {profileData.name}
-              </span>
+              <span>{profileData.name}</span>
             </h1>
 
             {/* Typewriter Dynamic Subtitle */}
@@ -92,7 +87,7 @@ export function HeroSection() {
               <span className="text-xl sm:text-2xl font-mono font-semibold text-[var(--primary)]">
                 {displayText}
               </span>
-              <span className="inline-block w-2.5 h-6 bg-[var(--primary)] ml-1 animate-pulse" />
+              <span className="inline-block w-2.5 h-6 bg-[var(--primary)] ml-1" />
             </div>
 
             {/* Description */}
@@ -100,11 +95,11 @@ export function HeroSection() {
               {mounted ? t.hero_desc : profileData.role.id}
             </p>
 
-            {/* CTA Action Buttons */}
-            <div className="mt-8 flex flex-wrap items-center gap-3.5">
+            {/* CTA Action Buttons - structured radii, no glowing blur shadows */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-strong)] active:scale-95 transition-all duration-200 shadow-md hover:shadow-[0_0_24px_rgba(26,110,247,0.35)]"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[var(--primary)] text-white font-medium text-sm hover:bg-[var(--primary-strong)] active:scale-98 transition-colors shadow-xs"
               >
                 <span>{mounted ? t.hero_btn_projects : "Lihat Proyek"}</span>
                 <ChevronRight className="w-4 h-4" />
@@ -113,7 +108,7 @@ export function HeroSection() {
               <a
                 href={profileData.cvUrl}
                 download="CV-Rafi-Alif-Azhar.pdf"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] font-semibold text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-95 transition-all duration-200 shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] font-medium text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-98 transition-colors shadow-xs"
               >
                 <Download className="w-4 h-4" />
                 <span>{mounted ? t.hero_btn_cv : "Download CV"}</span>
@@ -121,7 +116,7 @@ export function HeroSection() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] font-semibold text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-95 transition-all duration-200 shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] font-medium text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-98 transition-colors shadow-xs"
               >
                 <Mail className="w-4 h-4" />
                 <span>{mounted ? t.hero_btn_contact : "Hubungi Saya"}</span>
@@ -143,27 +138,24 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Profile Photo Card with Glow */}
+          {/* Right Column: Profile Photo Card - crisp matte surface, no radial blurred glow */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative group">
-              {/* Outer Decorative Glow */}
-              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-[var(--primary)] to-[#42C8FF] opacity-25 blur-2xl group-hover:opacity-40 transition-opacity duration-500" />
-
-              <div className="relative w-64 h-80 sm:w-76 sm:h-96 rounded-3xl overflow-hidden border-2 border-[var(--border)] bg-[var(--surface)] shadow-2xl">
+              <div className="relative w-64 h-80 sm:w-76 sm:h-96 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface)] shadow-md">
                 <Image
                   src={profileData.photos.desktop}
                   alt={profileData.name}
                   fill
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-102"
                   sizes="(max-width: 640px) 256px, 304px"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
                   <span className="font-bold text-white text-base">
                     {profileData.name}
                   </span>
                   <span className="text-xs text-white/80 font-mono">
-                    Full Stack Web Developer
+                    Web Developer
                   </span>
                 </div>
               </div>
@@ -171,11 +163,11 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll down prompt */}
+        {/* Scroll down prompt - calm and static, no endless bounce */}
         <div className="mt-12 flex justify-center">
           <a
             href="#about"
-            className="inline-flex items-center gap-2 text-xs font-mono text-[var(--muted)] hover:text-[var(--primary)] transition-colors animate-bounce"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[var(--muted)] hover:text-[var(--primary)] transition-colors"
           >
             <span>{mounted ? t.hero_scroll_explore : "Scroll untuk Menjelajah"}</span>
             <ArrowDown className="w-3.5 h-3.5" />

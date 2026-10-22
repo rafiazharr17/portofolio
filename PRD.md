@@ -1,3 +1,4 @@
+
 # PRD.md — Portfolio Rafi Alif Azhar
 
 > Product Requirements Document untuk migrasi dan pengembangan ulang portfolio pribadi menjadi aplikasi Next.js yang siap di-deploy ke Vercel.
@@ -11,7 +12,7 @@
 
 Portfolio pribadi Rafi Alif Azhar akan dibangun ulang menggunakan Next.js dari website HTML, CSS, dan JavaScript saat ini. Website berfungsi sebagai profil profesional, showcase proyek, bukti kompetensi, pengalaman, serta kanal kontak untuk recruiter, perusahaan, dan calon klien.
 
-Versi baru harus mempertahankan informasi inti dan fitur yang masih relevan dari website lama, sekaligus meningkatkan struktur kode, performa, aksesibilitas, SEO, responsivitas, dan pengalaman visual. Website akan memiliki pengalaman visual immersive dengan scene 3D berbasis Three.js yang terintegrasi dengan alur halaman. Animasi 3D harus scroll-driven: posisi kamera, transformasi objek, transisi antar-scene, dan elemen visual berubah mengikuti progres scroll. Visual mengambil inspirasi dari referensi Musée dan David Heckhoff, tetapi konsep, komposisi, konten, dan identitasnya dibuat khusus untuk portofolio Rafi.
+Versi baru harus mempertahankan informasi inti dan fitur yang masih relevan dari website lama, sekaligus meningkatkan struktur kode, performa, aksesibilitas, SEO, responsivitas, dan pengalaman visual. Website akan memiliki pengalaman 3D yang mengikuti scroll, tetapi tidak boleh terasa seperti template generatif. Arah visual spesifik ditetapkan di `DESIGN.md`: satu scene berkesinambungan berupa *systems workbench* yang menampilkan representasi dari proyek Rafi yang benar-benar ada, dengan kamera bergerak di antara modul proyek saat halaman digulir. Musée dan David Heckhoff hanya menjadi referensi interaksi; jangan menyalin bentuk, layout, atau identitasnya. Terapkan anti-slop sebagai filter kualitas visual, copywriting, aksesibilitas, responsivitas, dan interaksi.
 
 ## 2. Latar Belakang dan Masalah
 
@@ -33,6 +34,7 @@ Migrasi ke Next.js ditujukan untuk:
 3. Memudahkan recruiter atau calon klien menghubungi pemilik portfolio.
 4. Memberikan pengalaman visual yang modern, responsif, dan profesional.
 5. Memastikan website dapat di-deploy di Vercel tanpa membutuhkan server khusus.
+6. Menghasilkan identitas visual yang spesifik untuk Rafi, bukan UI generik dengan pola dekorasi yang lazim dihasilkan AI.
 
 ### 3.2 Indikator keberhasilan
 - Semua section utama dapat diakses melalui navigasi dan tautan anchor.
@@ -41,6 +43,8 @@ Migrasi ke Next.js ditujukan untuk:
 - Build production berhasil dan dapat di-deploy ke Vercel.
 - Metadata, title, description, canonical, dan Open Graph terkonfigurasi.
 - Animasi 3D tidak menghalangi konten, navigasi, atau interaksi utama.
+- Elemen visual, gerakan, dan copywriting punya alasan yang bisa dijelaskan; tidak ada statistik, testimoni, screenshot, atau klaim yang dibuat-buat.
+- Review anti-slop selesai dan temuan kritis diperbaiki sebelum rilis.
 - Pengguna tetap dapat memahami isi website ketika animasi dinonaktifkan atau WebGL tidak tersedia.
 
 ## 4. Target Pengguna
@@ -56,7 +60,7 @@ Migrasi ke Next.js ditujukan untuk:
 
 ### 5.1 Termasuk dalam MVP
 - One-page portfolio dengan navigasi ke section.
-- Hero section dengan nama, role, status ketersediaan, foto, CTA, dan statistik.
+- Hero section dengan nama, role, ringkasan, CTA, serta foto/status/statistik hanya jika aset dan datanya tersedia serta sudah diverifikasi.
 - About / profil singkat.
 - Daftar teknologi dan skill.
 - Project portfolio dengan filter kategori.
@@ -69,6 +73,8 @@ Migrasi ke Next.js ditujukan untuk:
 - Toggle light / dark mode.
 - Pengalaman 3D scroll-driven menggunakan Three.js/React Three Fiber dan GSAP ScrollTrigger (atau pendekatan setara yang dipilih secara konsisten).
 - Storyboard visual per chapter: Hero, About, Skills, Projects, Experience/Certificates, dan Contact.
+- Satu arah seni yang konsisten dan personal: *systems workbench* dengan screenshot/prototype proyek asli, komposisi asimetris, palet netral hangat + aksen biru yang sudah digunakan website lama, serta bentuk yang punya fungsi jelas.
+- Proses review anti-slop untuk UI, copy, aksesibilitas, mobile layout, dan semua interaksi sebelum rilis.
 - Pergerakan kamera, objek, pencahayaan, serta transisi visual yang disinkronkan dengan progres scroll.
 - Responsive layout untuk desktop, tablet, dan mobile.
 - SEO metadata dan deployment Vercel.
@@ -137,7 +143,7 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - Pada layar kecil, menu harus menjadi mobile navigation yang mudah digunakan.
 
 ### FR-02 — Hero dan CTA
-- Menampilkan nama, profesi, deskripsi singkat, foto, status ketersediaan, dan statistik.
+- Menampilkan nama, profesi, dan deskripsi singkat. Foto, status ketersediaan, atau statistik hanya muncul jika tersedia dan sudah diverifikasi.
 - Menyediakan CTA untuk melihat proyek, mengunduh CV, dan menghubungi pemilik.
 - Efek teks berganti (typewriter) boleh digunakan, tetapi teks utama profesi tetap dapat dibaca tanpa menunggu animasi.
 - CV mengarah ke berkas lokal yang benar di folder `public`.
@@ -189,12 +195,12 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - Progres scroll harus mengendalikan animasi: posisi/rotasi kamera, posisi dan skala objek, perubahan komposisi, pencahayaan, serta transisi antar-chapter.
 - Animasi harus scrubbed atau dipetakan ke progres scroll sehingga scroll ke bawah menjalankan adegan ke depan dan scroll ke atas mengembalikan adegan secara koheren. Hindari animasi yang hanya berjalan berdasarkan timer dan tidak sinkron dengan posisi scroll.
 - Gunakan storyboard minimal berikut sebagai acuan; detail visual boleh disempurnakan selama fungsi setiap chapter tetap terjaga:
-  1. **Hero / Entry:** dunia 3D memperkenalkan identitas Rafi, dengan kamera bergerak masuk atau mengorbit perlahan; judul, role, dan CTA tetap mudah dibaca.
-  2. **About:** kamera berpindah ke area/objek yang merepresentasikan profil dan perjalanan developer.
-  3. **Skills:** node teknologi, modul, atau elemen visual terhubung muncul/tersusun sesuai scroll.
-  4. **Projects:** menjadi chapter visual utama; kartu/panel proyek masuk ke fokus kamera satu per satu atau melalui transisi ruang yang terencana, dengan judul, deskripsi, stack, dan tautan proyek yang tetap berupa HTML interaktif.
-  5. **Experience & Certificates:** kamera bergerak ke area berikutnya dan elemen timeline/credential ditampilkan secara terstruktur.
-  6. **Contact / Outro:** scene merangkum dunia visual dan mengarahkan perhatian ke CTA kontak.
+  1. **Hero / Entry:** kamera memperlihatkan panggung *systems workbench* dan satu preview proyek asli; nama, role, ringkasan, dan CTA tetap terlihat sebagai HTML.
+  2. **About:** kamera bergeser ke bagian panggung yang lebih lapang; profil tetap disampaikan lewat teks DOM, bukan avatar atau model manusia buatan.
+  3. **Skills:** modul teknologi tersusun secara terukur dan hanya memakai skill yang ada di data portofolio. Hindari node acak yang sekadar menyimbolkan 'AI' atau jaringan.
+  4. **Projects:** menjadi chapter visual utama. Preview browser memakai screenshot/aset proyek asli bila tersedia, dengan satu proyek unggulan sebagai fokus dan proyek lain sebagai daftar/indeks HTML yang tidak seragam secara paksa.
+  5. **Experience & Certificates:** kamera mengikuti rail/timeline sederhana; kredensial berupa bukti yang terverifikasi, bukan koleksi medali 3D dekoratif.
+  6. **Contact / Outro:** kamera menjauh untuk menunjukkan hubungan antara beberapa modul proyek, lalu berhenti pada komposisi tenang yang mengarahkan perhatian ke kontak.
 - Setiap chapter harus memiliki rentang scroll yang jelas dan transisi yang halus; hindari kamera bergerak terlalu cepat, gerakan tanpa tujuan, atau perpindahan yang membuat pengguna kehilangan konteks.
 - Gunakan GSAP ScrollTrigger atau solusi scroll-driven setara. Pilih satu pendekatan utama untuk mengorkestrasi timeline; hindari menumpuk beberapa library animasi untuk pekerjaan yang sama.
 - Teks, tombol, link, dan konten utama harus tetap berupa DOM/HTML semantik, bukan dirender sebagai tekstur di dalam canvas.
@@ -255,6 +261,15 @@ Nama, deskripsi, tahun, stack, thumbnail, demo URL, dan repository URL harus dia
 - Komponen digunakan ulang untuk kartu proyek, skill, sertifikasi, timeline, dan tombol.
 - TypeScript digunakan untuk mengurangi kesalahan data dan props.
 - Tidak ada tautan placeholder atau tombol yang tidak berfungsi.
+
+### NFR-06 — Anti-Slop dan Keaslian Visual
+- `DESIGN.md` adalah sumber arah visual; anti-slop berfungsi sebagai filter untuk membuang pola generik, bukan alasan untuk membuat desain menjadi kosong atau monoton.
+- Sebelum implementasi, coding agent harus memeriksa apakah skill anti-slop tersedia di environment. Jika tersedia, baca core `antislop` dan skill yang relevan: `antislop-ui`, `antislop-copywriting`, `antislop-human`, dan `antislop-layoutmobile`. Jika tidak tersedia, gunakan guardrail dan checklist di dokumen ini tanpa mengklaim skill sudah dijalankan.
+- Hindari default UI generatif tanpa alasan: gradient biru-ungu/cyan, glow-orb, partikel acak, glassmorphism di semua panel, radius seragam di setiap komponen, bayangan besar pada semua kartu, dekorasi terminal palsu, status dot tanpa makna, kartu statistik palsu, dan grid kartu identik di semua section.
+- Setiap objek 3D harus berhubungan dengan konten yang nyata atau punya fungsi komposisi yang dijelaskan. Jangan membuat screenshot, kode, data dashboard, logo, testimoni, credential, metrik hasil, atau kontribusi proyek yang tidak bersumber.
+- Copy harus ringkas, manusiawi, dan spesifik pada fakta yang terverifikasi. Hindari jargon promosi, klaim bombastis, frasa kosong seperti “revolutionary”, “next-level”, “seamless experience”, dan tagline template.
+- Jangan menerapkan pola visual yang sama ke setiap section hanya demi konsistensi; konsistensi datang dari token warna, tipografi, ritme, dan kualitas motion, sementara bentuk layout mengikuti fungsi konten.
+- Sebelum release, lakukan review anti-slop dengan hasil PASS/FAIL dan perbaiki temuan kritis, termasuk mengeklik dan menguji setiap kontrol interaktif satu per satu.
 
 ## 9. Rekomendasi Teknologi
 
@@ -432,17 +447,21 @@ Ketentuan `.gitignore`:
 - [ ] `npm run build` berhasil.
 - [ ] Deployment Vercel berhasil dan semua aset tersedia di production.
 - [ ] Tidak ada error runtime penting di browser console.
+- [ ] Tidak ada statistik, testimonial, UI screenshot, logo, atau klaim yang dibuat-buat; semua konten promosi bisa ditelusuri ke data sumber.
+- [ ] Layout antar-section punya variasi yang sesuai dengan fungsi konten, bukan satu template kartu yang diulang untuk semuanya.
+- [ ] Tidak ada dekorasi glow/gradient/terminal/partikel yang ditambahkan tanpa fungsi desain yang jelas.
+- [ ] Anti-slop Delivery Gate memuat hasil PASS/FAIL untuk visual, copy/content integrity, aksesibilitas/responsivitas, dan perilaku interaksi; setiap temuan kritis sudah ditutup.
 
 ## 13. Tahapan Implementasi
 
-1. **Audit & content migration** — inventaris konten, gambar, CV, sertifikasi, demo, dan repository.
+1. **Anti-slop setup & audit konten** — periksa skill anti-slop yang tersedia di environment; audit konten, gambar, CV, sertifikasi, demo, repository, dan pola visual website lama. Jangan membuat klaim/aset pengganti jika data belum tersedia.
 2. **Project setup** — Next.js App Router, TypeScript, Tailwind, linting, dan struktur folder.
 3. **Core layout** — metadata, font, navbar, footer, container, dan design tokens.
 4. **Content sections** — hero, about, projects, certificates, experience, testimonials, contact.
 5. **Interactions** — filter proyek, bahasa, tema, mobile nav, dan interaksi UI.
 6. **Scroll-driven 3D** — bangun storyboard chapter, scene/camera rig, timeline GSAP ScrollTrigger, sinkronisasi dengan scroll, fallback, serta reduced-motion/mobile mode.
 7. **Repository hygiene** — tambahkan dan verifikasi `.gitignore`; pastikan tidak ada secrets atau build artifacts yang ikut dilacak.
-8. **Quality checks** — responsivitas, aksesibilitas, SEO, tautan, performa scene, dan production build.
+8. **Quality checks + anti-slop Delivery Gate** — responsivitas, aksesibilitas, SEO, validitas copy/aset, perilaku semua kontrol, performa scene, dan production build. Laporkan PASS/FAIL dan bukti pemeriksaan, jangan hanya menyatakan 'sudah dicek'.
 9. **Vercel deployment** — deploy preview, QA seluruh chapter scroll di desktop/mobile, lalu production.
 
 ## 14. Risiko dan Mitigasi

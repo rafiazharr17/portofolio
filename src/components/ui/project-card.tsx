@@ -21,7 +21,7 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
   const fallbackHint = project.fallbackHint[lang] || project.fallbackHint.id;
 
   return (
-    <article className="group relative flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden transition-all duration-300 hover:border-[var(--primary)]/40 hover:shadow-lg hover:-translate-y-1">
+    <article className="group relative flex flex-col rounded-lg border border-[var(--border)] bg-[var(--surface)] overflow-hidden transition-colors duration-200 hover:border-[var(--primary)]/60 shadow-xs">
       {/* Thumbnail or Fallback Header */}
       <div className="relative aspect-[16/10] w-full bg-[var(--surface-muted)] overflow-hidden border-b border-[var(--border)]">
         {project.image && !imageError ? (
@@ -29,16 +29,16 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
             src={project.image}
             alt={`Screenshot ${project.title}`}
             fill
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-102"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-[var(--surface-muted)] via-[var(--surface)] to-[var(--surface-muted)]">
-            <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center mb-3">
-              <Layers className="w-6 h-6" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-[var(--surface-muted)]">
+            <div className="w-10 h-10 rounded-md bg-[var(--surface)] border border-[var(--border)] text-[var(--primary)] flex items-center justify-center mb-2">
+              <Layers className="w-5 h-5" />
             </div>
-            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--primary)]">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--foreground)]">
               {project.fallbackTitle}
             </span>
             <span className="text-xs text-[var(--muted)] mt-1">
@@ -48,18 +48,18 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
         )}
 
         {/* Category & Year Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10 pointer-events-none">
           <span
             className={cn(
-              "px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider uppercase backdrop-blur-md shadow-xs",
+              "px-2 py-0.5 rounded-md text-[10px] font-mono font-medium tracking-wider uppercase border shadow-xs",
               isFullStack
-                ? "bg-blue-600/90 text-white"
-                : "bg-emerald-600/90 text-white"
+                ? "bg-[var(--surface)]/95 text-[var(--primary)] border-[var(--border)]"
+                : "bg-[var(--surface)]/95 text-emerald-600 dark:text-emerald-400 border-[var(--border)]"
             )}
           >
             {isFullStack ? "Full Stack" : "Frontend"}
           </span>
-          <span className="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-black/60 text-white/90 backdrop-blur-md">
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-[var(--surface)]/95 text-[var(--muted)] border border-[var(--border)] shadow-xs">
             {project.year}
           </span>
         </div>

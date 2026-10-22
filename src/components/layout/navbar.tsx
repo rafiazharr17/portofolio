@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Sparkles, Send } from "lucide-react";
+import { Menu, Send } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { MobileNav } from "./mobile-nav";
@@ -94,19 +94,17 @@ export function Navbar() {
           <a
             href="#hero"
             aria-label="Kembali ke atas / Hero"
-            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] rounded-lg p-1"
+            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] rounded-md p-1"
           >
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#1A6EF7] to-[#42C8FF] text-white flex items-center justify-center font-mono text-sm font-bold shadow-sm group-hover:scale-105 group-hover:shadow-[0_0_16px_rgba(66,200,255,0.4)] transition-all duration-300">
+            <div className="w-8 h-8 rounded-md bg-[var(--surface-muted)] border border-[var(--border)] text-[var(--primary)] flex items-center justify-center font-mono text-xs font-bold transition-colors group-hover:border-[var(--primary)] shadow-xs">
               RA
-              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[var(--background)] ring-1 ring-emerald-400/40" />
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-sm tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
                 Rafi Alif Azhar
               </span>
-              <span className="font-mono text-[10px] text-[var(--muted)] tracking-wider uppercase flex items-center gap-1">
-                <Sparkles className="w-2.5 h-2.5 text-[var(--primary)]" />
-                Full Stack Dev
+              <span className="font-mono text-[10px] text-[var(--muted)] tracking-wider uppercase">
+                Web Developer
               </span>
             </div>
           </a>
@@ -114,7 +112,7 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav
             aria-label="Main Navigation"
-            className="hidden md:flex items-center gap-1 p-1 rounded-full border border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-md shadow-xs"
+            className="hidden md:flex items-center gap-1 p-1 rounded-lg border border-[var(--border)] bg-[var(--surface)] shadow-xs"
           >
             {navLinks.map((link) => {
               const secId = link.href.replace("#", "");
@@ -125,9 +123,9 @@ export function Navbar() {
                   href={link.href}
                   onClick={() => setActiveSection(secId)}
                   className={cn(
-                    "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]",
+                    "relative px-3.5 py-1.5 text-xs font-medium rounded-md transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]",
                     isActive
-                      ? "text-white bg-[var(--primary)] shadow-xs font-semibold"
+                      ? "text-white bg-[var(--primary)] font-semibold shadow-xs"
                       : "text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface-muted)]"
                   )}
                 >
@@ -147,10 +145,10 @@ export function Navbar() {
             {/* Desktop CTA Button */}
             <a
               href="#contact"
-              className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)] text-white text-xs font-semibold hover:bg-[var(--primary-strong)] active:scale-95 transition-all duration-200 shadow-sm"
+              className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--primary)] text-white text-xs font-semibold hover:bg-[var(--primary-strong)] active:scale-95 transition-all duration-200 shadow-sm"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>{mounted ? t.nav_cta : "Hire Me"}</span>
+              <span>{mounted ? t.nav_cta : "Hubungi"}</span>
             </a>
 
             {/* Mobile Hamburger Button */}
@@ -159,7 +157,7 @@ export function Navbar() {
               onClick={() => setMobileNavOpen(true)}
               aria-label="Buka menu navigasi"
               aria-expanded={mobileNavOpen}
-              className="md:hidden w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--surface-muted)] active:scale-95 cursor-pointer shadow-xs transition-colors"
+              className="md:hidden w-10 h-10 rounded-md border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--surface-muted)] active:scale-95 cursor-pointer shadow-xs transition-colors"
             >
               <Menu className="w-5 h-5" />
             </button>

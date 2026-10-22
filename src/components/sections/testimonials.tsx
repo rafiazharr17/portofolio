@@ -29,11 +29,11 @@ export function TestimonialsSection() {
           return (
             <div
               key={item.id}
-              className="relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-7 flex flex-col justify-between shadow-xs hover:border-[var(--primary)]/40 hover:shadow-md transition-all duration-300"
+              className="relative rounded-lg border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:border-[var(--primary)]/60 transition-colors duration-200"
             >
               <div>
-                <div className="w-10 h-10 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center mb-5">
-                  <Quote className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-md bg-[var(--surface-muted)] text-[var(--primary)] border border-[var(--border)] flex items-center justify-center mb-4">
+                  <Quote className="w-4 h-4" />
                 </div>
                 <blockquote className="text-sm sm:text-base text-[var(--foreground)] italic leading-relaxed mb-6">
                   &ldquo;{quote}&rdquo;

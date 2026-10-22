@@ -77,22 +77,17 @@ export function PortfolioCanvas() {
       const delta = (time - lastTime) * 0.001;
       lastTime = time;
 
-      // Smooth idle rotation on central core
+      // Gentle mouse damping and render
       if (!reducedMotion) {
-        workspace.centralCore.rotation.y += delta * 0.15;
-        workspace.centralCore.rotation.x += delta * 0.05;
-        workspace.particles.rotation.y += delta * 0.02;
-
-        // Smooth mouse damping
-        currentMouseX += (targetMouseX - currentMouseX) * 0.05;
-        currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+        currentMouseX += (targetMouseX - currentMouseX) * 0.04;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.04;
 
         workspace.camera.position.x +=
-          (workspace.camera.position.x + currentMouseX - workspace.camera.position.x) *
-          0.05;
+          (workspace.camera.position.x + currentMouseX * 0.8 - workspace.camera.position.x) *
+          0.04;
         workspace.camera.position.y +=
-          (workspace.camera.position.y - currentMouseY - workspace.camera.position.y) *
-          0.05;
+          (workspace.camera.position.y - currentMouseY * 0.6 - workspace.camera.position.y) *
+          0.04;
       }
 
       workspace.render();

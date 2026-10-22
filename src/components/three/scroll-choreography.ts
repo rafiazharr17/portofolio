@@ -13,20 +13,21 @@ export function initScrollChoreography(
   const {
     camera,
     cameraTarget,
-    centralCore,
+    featuredFrame,
     projectScreens,
-    dataPathways,
-    milestonePillars,
+    systemBlocks,
+    timelineRail,
+    workbenchBase,
   } = workspace;
 
   if (reducedMotion) {
-    // Gentle stationary position if reduced motion is requested
-    camera.position.set(0, 0, 7.5);
+    // Stationary resting perspective for reduced motion preference
+    camera.position.set(1.8, 2.2, 6.8);
     cameraTarget.set(0, 0, 0);
     return () => {};
   }
 
-  // Create Master GSAP ScrollTrigger timeline
+  // Master GSAP ScrollTrigger timeline mapped to the page height
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "main",
@@ -37,88 +38,70 @@ export function initScrollChoreography(
     },
   });
 
-  // Storyboard Keyframes:
-  // Progress 0% -> Hero (start)
-  // Progress 15% -> About
+  // Keyframe 0 -> 1: Hero to About (Shift to spacious side of workbench)
   tl.to(
     camera.position,
-    { x: -2.4, y: 0.8, z: 6.2, ease: "power1.inOut" },
+    { x: -1.6, y: 1.6, z: 6.0, ease: "power1.inOut" },
     0
   )
-    .to(cameraTarget, { x: 0.5, y: 0.1, z: 0, ease: "power1.inOut" }, 0)
-    .to(centralCore.rotation, { y: Math.PI * 0.5, x: 0.2, ease: "none" }, 0);
+    .to(cameraTarget, { x: -0.4, y: 0.1, z: 0, ease: "power1.inOut" }, 0)
+    .to(workbenchBase.rotation, { y: 0.12, ease: "none" }, 0);
 
-  // Progress 30% -> Skills
+  // Keyframe 1 -> 2: About to Skills (Frame system architecture blocks)
   tl.to(
     camera.position,
-    { x: 2.8, y: -0.6, z: 5.5, ease: "power1.inOut" },
+    { x: -2.6, y: 0.2, z: 4.6, ease: "power1.inOut" },
     1
   )
-    .to(cameraTarget, { x: -0.2, y: 0.2, z: 0, ease: "power1.inOut" }, 1)
-    .to(centralCore.rotation, { y: Math.PI * 1.0, x: -0.3, ease: "none" }, 1)
-    .to(dataPathways.rotation, { z: 0.2, ease: "power1.inOut" }, 1);
+    .to(cameraTarget, { x: -2.0, y: -0.9, z: 0.6, ease: "power1.inOut" }, 1)
+    .to(systemBlocks.position, { y: 0.15, ease: "power1.out" }, 1);
 
-  // Progress 50% -> Projects (Visual Centerpiece: screens fan out)
+  // Keyframe 2 -> 3: Skills to Projects (Visual Centerpiece: featured frame advances)
   tl.to(
     camera.position,
-    { x: 0, y: 0.2, z: 4.8, ease: "power1.inOut" },
+    { x: 0.2, y: 0.6, z: 4.2, ease: "power1.inOut" },
     2
   )
-    .to(cameraTarget, { x: 0, y: 0, z: 0, ease: "power1.inOut" }, 2)
-    .to(centralCore.scale, { x: 0.85, y: 0.85, z: 0.85, ease: "power1.out" }, 2);
+    .to(cameraTarget, { x: 0.5, y: 0.15, z: 0.4, ease: "power1.inOut" }, 2)
+    .to(featuredFrame.position, { z: 0.7, y: 0.35, ease: "power1.out" }, 2);
 
   if (projectScreens.length >= 3) {
     tl.to(
       projectScreens[0].position,
-      { x: -1.8, y: 0.4, z: 0.2, ease: "power1.inOut" },
+      { x: -2.2, y: 0.1, z: -0.4, ease: "power1.inOut" },
       2
     )
       .to(
         projectScreens[1].position,
-        { x: 1.8, y: 0.3, z: 0.1, ease: "power1.inOut" },
+        { x: 2.4, y: 0.0, z: -0.6, ease: "power1.inOut" },
         2
       )
       .to(
         projectScreens[2].position,
-        { x: 0, y: -1.1, z: -0.4, ease: "power1.inOut" },
+        { x: -0.9, y: -0.5, z: 1.4, ease: "power1.inOut" },
         2
       );
   }
 
-  // Progress 70% -> Experience & Certificates
+  // Keyframe 3 -> 4: Projects to Experience & Certificates (Timeline guide rail)
   tl.to(
     camera.position,
-    { x: -1.8, y: -1.2, z: 5.8, ease: "power1.inOut" },
+    { x: 2.2, y: -0.1, z: 4.4, ease: "power1.inOut" },
     3
   )
-    .to(cameraTarget, { x: 0, y: -0.5, z: 0, ease: "power1.inOut" }, 3)
-    .to(milestonePillars.rotation, { y: Math.PI * 0.4, ease: "none" }, 3);
+    .to(cameraTarget, { x: 1.5, y: -1.2, z: -0.4, ease: "power1.inOut" }, 3)
+    .to(timelineRail.position, { y: 0.1, ease: "power1.out" }, 3);
 
-  // Progress 85% -> Certificates
+  // Keyframe 4 -> 5: Certificates to Contact / Outro (Pull-back showing complete workbench)
   tl.to(
     camera.position,
-    { x: 1.8, y: 1.0, z: 5.2, ease: "power1.inOut" },
+    { x: 1.4, y: 2.8, z: 8.2, ease: "power1.inOut" },
     4
   )
-    .to(cameraTarget, { x: 0, y: 0.2, z: 0, ease: "power1.inOut" }, 4);
-
-  // Progress 100% -> Contact / Outro (Pull-back showing whole connected workspace)
-  tl.to(
-    camera.position,
-    { x: 0, y: 0, z: 8.8, ease: "power1.inOut" },
-    5
-  )
-    .to(cameraTarget, { x: 0, y: 0, z: 0, ease: "power1.inOut" }, 5)
-    .to(
-      centralCore.scale,
-      { x: 1.1, y: 1.1, z: 1.1, ease: "power1.inOut" },
-      5
-    )
-    .to(
-      centralCore.rotation,
-      { y: Math.PI * 2.5, ease: "none" },
-      5
-    );
+    .to(cameraTarget, { x: 0, y: -0.2, z: 0, ease: "power1.inOut" }, 4)
+    .to(featuredFrame.position, { z: 0.4, y: 0.2, ease: "power1.inOut" }, 4)
+    .to(systemBlocks.position, { y: 0, ease: "power1.inOut" }, 4)
+    .to(timelineRail.position, { y: 0, ease: "power1.inOut" }, 4);
 
   // Cleanup handler
   return () => {

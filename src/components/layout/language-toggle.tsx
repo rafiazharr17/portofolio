@@ -19,11 +19,11 @@ export function LanguageToggle({ className, ariaLabel = "Toggle language" }: Lan
       role="group"
       aria-label={ariaLabel}
       className={cn(
-        "inline-flex items-center p-0.5 rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm text-xs font-mono font-medium",
+        "inline-flex items-center p-0.5 rounded-md border border-[var(--border)] bg-[var(--surface)] shadow-xs text-xs font-mono font-medium",
         className
       )}
     >
-      <div className="pl-2 pr-1 text-[var(--muted)]" aria-hidden="true">
+      <div className="pl-1.5 pr-1 text-[var(--muted)]" aria-hidden="true">
         <Globe className="w-3.5 h-3.5" />
       </div>
       <button
@@ -31,7 +31,7 @@ export function LanguageToggle({ className, ariaLabel = "Toggle language" }: Lan
         onClick={() => setLanguage("id")}
         aria-pressed={currentLang === "id"}
         className={cn(
-          "px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]",
+          "px-2 py-0.5 rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)] text-[11px]",
           currentLang === "id"
             ? "bg-[var(--primary)] text-white font-semibold shadow-xs"
             : "text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -44,7 +44,7 @@ export function LanguageToggle({ className, ariaLabel = "Toggle language" }: Lan
         onClick={() => setLanguage("en")}
         aria-pressed={currentLang === "en"}
         className={cn(
-          "px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]",
+          "px-2 py-0.5 rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)] text-[11px]",
           currentLang === "en"
             ? "bg-[var(--primary)] text-white font-semibold shadow-xs"
             : "text-[var(--muted)] hover:text-[var(--foreground)]"

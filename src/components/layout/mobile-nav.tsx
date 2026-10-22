@@ -76,7 +76,7 @@ export function MobileNav({
           type="button"
           onClick={onClose}
           aria-label="Tutup menu navigasi"
-          className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--surface-muted)] cursor-pointer"
+          className="w-10 h-10 rounded-md border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--surface-muted)] cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>

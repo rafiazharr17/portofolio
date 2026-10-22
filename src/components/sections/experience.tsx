@@ -39,7 +39,7 @@ export function ExperienceSection() {
               </div>
 
               {/* Card Container */}
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-xs hover:border-[var(--primary)]/30 hover:shadow-md transition-all duration-300">
+              <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-xs hover:border-[var(--primary)]/50 transition-colors duration-200">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[var(--border)] mb-4">
                   <div>
                     <h3 className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
@@ -50,7 +50,7 @@ export function ExperienceSection() {
                     </p>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[var(--surface-muted)] text-[var(--muted)] border border-[var(--border)] self-start sm:self-auto shrink-0">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-[var(--surface-muted)] text-[var(--muted)] border border-[var(--border)] self-start sm:self-auto shrink-0">
                     <Calendar className="w-3.5 h-3.5" />
                     {period}
                   </span>

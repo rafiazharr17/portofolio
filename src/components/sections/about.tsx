@@ -18,7 +18,7 @@ export function AboutSection() {
     {
       icon: GraduationCap,
       label: mounted ? t.info_education : "Pendidikan",
-      value: `${profileData.education.degree} — UMY (${profileData.education.period})`,
+      value: `${profileData.education.degree}, UMY (${profileData.education.period})`,
     },
     {
       icon: Award,
@@ -65,7 +65,7 @@ export function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left Column: Bio Paragraphs */}
         <div className="lg:col-span-7 space-y-5 text-base sm:text-lg text-[var(--muted)] leading-relaxed">
-          <p className="border-l-2 border-[var(--primary)] pl-4 text-[var(--foreground)] font-medium">
+          <p className="text-[var(--foreground)] font-medium">
             {mounted ? t.about_p1 : ""}
           </p>
           <p>{mounted ? t.about_p2 : ""}</p>
@@ -73,9 +73,9 @@ export function AboutSection() {
         </div>
 
         {/* Right Column: Verified Info Table Card */}
-        <div className="lg:col-span-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-sm">
+        <div className="lg:col-span-5 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-xs">
           <h3 className="text-xs font-mono font-bold tracking-widest text-[var(--primary)] uppercase mb-6 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--primary)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]" />
             Detail Informasi & Kualifikasi
           </h3>
 

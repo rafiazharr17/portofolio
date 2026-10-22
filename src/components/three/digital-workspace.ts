@@ -4,14 +4,14 @@ export interface WorkspaceObjects {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
-  centralCore: THREE.Group;
+  workbenchBase: THREE.Group;
+  featuredFrame: THREE.Group;
   projectScreens: THREE.Group[];
-  dataPathways: THREE.Group;
-  milestonePillars: THREE.Group;
-  particles: THREE.Points;
+  systemBlocks: THREE.Group;
+  timelineRail: THREE.Group;
   ambientLight: THREE.AmbientLight;
   keyLight: THREE.DirectionalLight;
-  corePointLight: THREE.PointLight;
+  rimLight: THREE.DirectionalLight;
   cameraTarget: THREE.Vector3;
   dispose: () => void;
   updateTheme: (isDark: boolean) => void;
@@ -26,14 +26,14 @@ export function createDigitalWorkspace(
   // 1. Scene
   const scene = new THREE.Scene();
 
-  // 2. Camera
+  // 2. Camera with architectural 3/4 isometric feel
   const camera = new THREE.PerspectiveCamera(
-    50,
+    45,
     window.innerWidth / window.innerHeight,
     0.1,
     100
   );
-  camera.position.set(0, 0, 7.5);
+  camera.position.set(2.5, 3.2, 7.2);
   const cameraTarget = new THREE.Vector3(0, 0, 0);
 
   // 3. Renderer with antialiasing and alpha for background integration
@@ -46,237 +46,235 @@ export function createDigitalWorkspace(
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  renderer.toneMappingExposure = 1.0;
 
-  // 4. Lighting
+  // 4. Lighting: One warm key light, one restrained cobalt rim light, soft ambient
   const ambientLight = new THREE.AmbientLight(
-    isDark ? 0x0a1220 : 0xd0e0ff,
-    isDark ? 1.5 : 2.0
+    isDark ? 0x172033 : 0xf1f5f9,
+    isDark ? 1.6 : 2.2
   );
   scene.add(ambientLight);
 
-  const keyLight = new THREE.DirectionalLight(0x42c8ff, isDark ? 2.8 : 3.2);
-  keyLight.position.set(5, 6, 6);
+  const keyLight = new THREE.DirectionalLight(0xfffbf5, isDark ? 2.4 : 2.8);
+  keyLight.position.set(6, 8, 5);
   scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0x1a6ef7, 1.4);
-  fillLight.position.set(-6, -4, 4);
-  scene.add(fillLight);
+  const rimLight = new THREE.DirectionalLight(0x1a6ef7, isDark ? 1.4 : 0.9);
+  rimLight.position.set(-6, 4, -4);
+  scene.add(rimLight);
 
-  const corePointLight = new THREE.PointLight(0x42c8ff, 3.0, 15);
-  corePointLight.position.set(0, 0, 0);
-  scene.add(corePointLight);
+  const textureLoader = new THREE.TextureLoader();
 
-  // 5. Central Project Core
-  const centralCore = new THREE.Group();
+  // 5. Workbench Base: Architectural modular board/slab
+  const workbenchBase = new THREE.Group();
 
-  // Inner Core Sphere/Icosahedron
-  const innerGeo = new THREE.IcosahedronGeometry(0.9, 1);
-  const innerMat = new THREE.MeshStandardMaterial({
-    color: isDark ? 0x1a6ef7 : 0x2563eb,
-    metalness: 0.85,
-    roughness: 0.2,
-    emissive: 0x0a2a66,
-    emissiveIntensity: 0.4,
+  const baseGeo = new THREE.BoxGeometry(9.6, 0.22, 6.2);
+  const baseMat = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x151f30 : 0xe8e6df,
+    metalness: 0.15,
+    roughness: 0.85,
   });
-  const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-  centralCore.add(innerMesh);
+  const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+  baseMesh.position.y = -1.6;
+  workbenchBase.add(baseMesh);
 
-  // Outer Wireframe Cage
-  const outerGeo = new THREE.IcosahedronGeometry(1.2, 1);
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x42c8ff,
-    wireframe: true,
-    transparent: true,
-    opacity: isDark ? 0.45 : 0.35,
+  // Architectural Guide Rails on the workbench
+  const railMat = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x223147 : 0xd2cfc6,
+    metalness: 0.5,
+    roughness: 0.4,
   });
-  const outerMesh = new THREE.Mesh(outerGeo, wireMat);
-  centralCore.add(outerMesh);
 
-  // Orbiting Rings
-  const ringGeo1 = new THREE.TorusGeometry(1.6, 0.02, 16, 64);
-  const ringMat1 = new THREE.MeshBasicMaterial({
-    color: 0x60a5fa,
-    transparent: true,
-    opacity: 0.5,
+  const rail1Geo = new THREE.BoxGeometry(9.2, 0.04, 0.08);
+  const rail1 = new THREE.Mesh(rail1Geo, railMat);
+  rail1.position.set(0, -1.47, -1.6);
+  workbenchBase.add(rail1);
+
+  const rail2 = new THREE.Mesh(rail1Geo, railMat);
+  rail2.position.set(0, -1.47, 1.2);
+  workbenchBase.add(rail2);
+
+  // Subtle accent line on workbench perimeter
+  const rimEdgeGeo = new THREE.BoxGeometry(9.64, 0.02, 6.24);
+  const rimEdgeMat = new THREE.MeshStandardMaterial({
+    color: 0x1a6ef7,
+    roughness: 0.5,
+    metalness: 0.3,
   });
-  const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
-  ring1.rotation.x = Math.PI / 3;
-  centralCore.add(ring1);
+  const rimEdge = new THREE.Mesh(rimEdgeGeo, rimEdgeMat);
+  rimEdge.position.y = -1.5;
+  workbenchBase.add(rimEdge);
 
-  const ringGeo2 = new THREE.TorusGeometry(1.85, 0.015, 16, 64);
-  const ringMat2 = new THREE.MeshBasicMaterial({
-    color: 0x38bdf8,
-    transparent: true,
-    opacity: 0.4,
+  scene.add(workbenchBase);
+
+  // 6. Featured Project Frame: Browser window displaying real project screenshot
+  const featuredFrame = new THREE.Group();
+
+  const frameWidth = 3.6;
+  const frameHeight = 2.25;
+  const frameDepth = 0.08;
+
+  const browserBezelGeo = new THREE.BoxGeometry(frameWidth, frameHeight, frameDepth);
+  const browserBezelMat = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x1c2738 : 0xffffff,
+    metalness: 0.2,
+    roughness: 0.4,
   });
-  const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
-  ring2.rotation.y = Math.PI / 4;
-  centralCore.add(ring2);
+  const browserBezel = new THREE.Mesh(browserBezelGeo, browserBezelMat);
+  featuredFrame.add(browserBezel);
 
-  scene.add(centralCore);
+  // Browser Screen (with authentic screenshot)
+  const screenGeo = new THREE.PlaneGeometry(frameWidth - 0.16, frameHeight - 0.28);
+  const screenTexture = textureLoader.load("/images/projects/dashboard-logistic-flex.png");
+  screenTexture.colorSpace = THREE.SRGBColorSpace;
 
-  // 6. Floating Application / Project Screens
+  const screenMat = new THREE.MeshBasicMaterial({
+    map: screenTexture,
+  });
+  const screenMesh = new THREE.Mesh(screenGeo, screenMat);
+  screenMesh.position.set(0, -0.06, frameDepth / 2 + 0.002);
+  featuredFrame.add(screenMesh);
+
+  // Browser Top Bar
+  const topBarGeo = new THREE.PlaneGeometry(frameWidth - 0.16, 0.18);
+  const topBarMat = new THREE.MeshBasicMaterial({
+    color: isDark ? 0x141d2b : 0xeef2f7,
+  });
+  const topBar = new THREE.Mesh(topBarGeo, topBarMat);
+  topBar.position.set(0, frameHeight / 2 - 0.16, frameDepth / 2 + 0.002);
+  featuredFrame.add(topBar);
+
+  // Subtle browser window title pill
+  const urlBarGeo = new THREE.PlaneGeometry(1.6, 0.09);
+  const urlBarMat = new THREE.MeshBasicMaterial({
+    color: isDark ? 0x223045 : 0xdfe6f0,
+  });
+  const urlBar = new THREE.Mesh(urlBarGeo, urlBarMat);
+  urlBar.position.set(0, frameHeight / 2 - 0.16, frameDepth / 2 + 0.004);
+  featuredFrame.add(urlBar);
+
+  // Set initial position on workbench
+  featuredFrame.position.set(0.6, 0.2, 0.4);
+  featuredFrame.rotation.y = -0.15;
+  scene.add(featuredFrame);
+
+  // 7. Project Index Rail: Supporting project screens on workbench
   const projectScreens: THREE.Group[] = [];
-  const screenPositions: [number, number, number][] = [
-    [-2.2, 0.8, -1.2],
-    [2.3, 0.5, -1.8],
-    [-1.8, -1.2, -2.5],
+  const secondaryProjectData = [
+    {
+      src: "/images/projects/asset-mis.jpeg",
+      pos: [-2.8, -0.2, -1.2] as [number, number, number],
+      rotY: 0.2,
+    },
+    {
+      src: "/images/projects/job-setup-verification.jpeg",
+      pos: [2.9, -0.3, -1.4] as [number, number, number],
+      rotY: -0.25,
+    },
+    {
+      src: "/images/projects/tkq-annaurah.jpeg",
+      pos: [-1.4, -0.6, 1.8] as [number, number, number],
+      rotY: 0.1,
+    },
   ];
 
-  screenPositions.forEach((pos, idx) => {
-    const screenGroup = new THREE.Group();
+  secondaryProjectData.forEach((item) => {
+    const pGroup = new THREE.Group();
+    const w = 2.0;
+    const h = 1.3;
+    const d = 0.05;
 
-    // Window Frame
-    const frameGeo = new THREE.BoxGeometry(1.8, 1.15, 0.04);
-    const frameMat = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x0f172a : 0xf1f5f9,
-      metalness: 0.6,
-      roughness: 0.4,
-      transparent: true,
-      opacity: 0.9,
+    const bGeo = new THREE.BoxGeometry(w, h, d);
+    const bMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0x15202e : 0xf8fafc,
+      metalness: 0.2,
+      roughness: 0.5,
     });
-    const frameMesh = new THREE.Mesh(frameGeo, frameMat);
-    screenGroup.add(frameMesh);
+    const bMesh = new THREE.Mesh(bGeo, bMat);
+    pGroup.add(bMesh);
 
-    // Glowing Border
-    const edgeGeo = new THREE.EdgesGeometry(frameGeo);
-    const edgeMat = new THREE.LineBasicMaterial({
-      color: idx === 0 ? 0x42c8ff : idx === 1 ? 0x1a6ef7 : 0x38bdf8,
-      transparent: true,
-      opacity: 0.7,
-    });
-    const edgeLine = new THREE.LineSegments(edgeGeo, edgeMat);
-    screenGroup.add(edgeLine);
+    const sGeo = new THREE.PlaneGeometry(w - 0.1, h - 0.1);
+    const tex = textureLoader.load(item.src);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    const sMat = new THREE.MeshBasicMaterial({ map: tex });
+    const sMesh = new THREE.Mesh(sGeo, sMat);
+    sMesh.position.set(0, 0, d / 2 + 0.002);
+    pGroup.add(sMesh);
 
-    // Titlebar dots (Red, Yellow, Green)
-    const dotGeo = new THREE.CircleGeometry(0.025, 12);
-    const colors = [0xef4444, 0xeab308, 0x22c55e];
-    colors.forEach((c, i) => {
-      const dotMat = new THREE.MeshBasicMaterial({ color: c });
-      const dotMesh = new THREE.Mesh(dotGeo, dotMat);
-      dotMesh.position.set(-0.75 + i * 0.08, 0.45, 0.025);
-      screenGroup.add(dotMesh);
-    });
-
-    // Abstract code / UI lines
-    for (let l = 0; l < 4; l++) {
-      const lineGeo = new THREE.PlaneGeometry(0.6 + (l % 2) * 0.4, 0.035);
-      const lineMat = new THREE.MeshBasicMaterial({
-        color: isDark ? 0x334155 : 0xcfd8e3,
-        transparent: true,
-        opacity: 0.7,
-      });
-      const lineMesh = new THREE.Mesh(lineGeo, lineMat);
-      lineMesh.position.set(-0.35 + (l % 2) * 0.1, 0.25 - l * 0.14, 0.025);
-      screenGroup.add(lineMesh);
-    }
-
-    screenGroup.position.set(...pos);
-    screenGroup.rotation.y = (idx === 0 ? 0.25 : -0.25) * Math.PI;
-    scene.add(screenGroup);
-    projectScreens.push(screenGroup);
+    pGroup.position.set(...item.pos);
+    pGroup.rotation.y = item.rotY;
+    scene.add(pGroup);
+    projectScreens.push(pGroup);
   });
 
-  // 7. Data Pathways & Interconnected Nodes
-  const dataPathways = new THREE.Group();
+  // 8. System Blocks: Modular architectural blocks representing Frontend, API/Backend, Database
+  const systemBlocks = new THREE.Group();
 
-  const curve1 = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-3.5, 2, -3),
-    new THREE.Vector3(-1.5, 0.5, -1),
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(1.5, -0.8, -1.5),
-    new THREE.Vector3(3.5, -1.5, -3),
-  ]);
-
-  const curve2 = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(3, 2, -2.5),
-    new THREE.Vector3(1.2, 1, -1),
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(-1.2, -1.2, -1),
-    new THREE.Vector3(-3, -2, -2.5),
-  ]);
-
-  [curve1, curve2].forEach((curve, i) => {
-    const tubeGeo = new THREE.TubeGeometry(curve, 64, 0.02, 8, false);
-    const tubeMat = new THREE.MeshBasicMaterial({
-      color: i === 0 ? 0x42c8ff : 0x1a6ef7,
-      transparent: true,
-      opacity: isDark ? 0.4 : 0.3,
-    });
-    const tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
-    dataPathways.add(tubeMesh);
+  const blockMat1 = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x1e2c40 : 0xdde3ec,
+    metalness: 0.4,
+    roughness: 0.4,
+  });
+  const blockMat2 = new THREE.MeshStandardMaterial({
+    color: 0x1a6ef7,
+    metalness: 0.3,
+    roughness: 0.5,
+  });
+  const blockMat3 = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x273852 : 0xc6d0df,
+    metalness: 0.4,
+    roughness: 0.4,
   });
 
-  // Pathway Nodes (Junction Points)
-  const nodeGeo = new THREE.SphereGeometry(0.08, 16, 16);
-  const nodeMat = new THREE.MeshBasicMaterial({ color: 0x42c8ff });
-  const nodePositions = [
-    [-1.5, 0.5, -1],
-    [1.5, -0.8, -1.5],
-    [1.2, 1, -1],
-    [-1.2, -1.2, -1],
-  ];
-  nodePositions.forEach((np) => {
-    const node = new THREE.Mesh(nodeGeo, nodeMat);
-    node.position.set(np[0], np[1], np[2]);
-    dataPathways.add(node);
+  // Layer 1: Database block (base)
+  const b1Geo = new THREE.BoxGeometry(1.6, 0.22, 1.2);
+  const b1 = new THREE.Mesh(b1Geo, blockMat1);
+  b1.position.set(-2.2, -1.35, 0.8);
+  systemBlocks.add(b1);
+
+  // Layer 2: API / Backend block (mid)
+  const b2Geo = new THREE.BoxGeometry(1.3, 0.22, 1.0);
+  const b2 = new THREE.Mesh(b2Geo, blockMat2);
+  b2.position.set(-2.2, -1.1, 0.8);
+  systemBlocks.add(b2);
+
+  // Layer 3: Frontend Client block (top)
+  const b3Geo = new THREE.BoxGeometry(1.0, 0.22, 0.8);
+  const b3 = new THREE.Mesh(b3Geo, blockMat3);
+  b3.position.set(-2.2, -0.85, 0.8);
+  systemBlocks.add(b3);
+
+  scene.add(systemBlocks);
+
+  // 9. Timeline Rail: Linear architectural ruler/guide rail with markers
+  const timelineRail = new THREE.Group();
+
+  const tTrackGeo = new THREE.BoxGeometry(3.6, 0.04, 0.06);
+  const tTrackMat = new THREE.MeshStandardMaterial({
+    color: isDark ? 0x25354c : 0xcbd5e1,
+    metalness: 0.5,
+    roughness: 0.4,
+  });
+  const tTrack = new THREE.Mesh(tTrackGeo, tTrackMat);
+  tTrack.position.set(1.5, -1.4, -0.5);
+  timelineRail.add(tTrack);
+
+  // 4 Milestone Pins along the timeline rail
+  const pinGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.2, 16);
+  const pinMat = new THREE.MeshStandardMaterial({
+    color: 0x1a6ef7,
+    metalness: 0.6,
+    roughness: 0.3,
   });
 
-  scene.add(dataPathways);
-
-  // 8. Milestone Cylinders / Career Objects
-  const milestonePillars = new THREE.Group();
-  const pillarGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.15, 32);
-  const pillarPositions: [number, number, number][] = [
-    [-2.0, -1.8, -2],
-    [-0.8, -2.4, -2.5],
-    [0.8, -2.8, -3],
-    [2.0, -3.2, -3.5],
-  ];
-
-  pillarPositions.forEach((pos, idx) => {
-    const pMat = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x1e293b : 0xe2e8f0,
-      metalness: 0.8,
-      roughness: 0.25,
-      emissive: idx === 0 ? 0x1a6ef7 : 0x0f172a,
-      emissiveIntensity: 0.3,
-    });
-    const pillar = new THREE.Mesh(pillarGeo, pMat);
-    pillar.position.set(...pos);
-
-    // Glowing accent ring on top
-    const ringGeo = new THREE.TorusGeometry(0.36, 0.015, 12, 32);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x42c8ff });
-    const pRing = new THREE.Mesh(ringGeo, ringMat);
-    pRing.rotation.x = Math.PI / 2;
-    pRing.position.y = 0.08;
-    pillar.add(pRing);
-
-    milestonePillars.add(pillar);
+  const pinPositions = [-1.2, -0.4, 0.4, 1.2];
+  pinPositions.forEach((posX) => {
+    const pin = new THREE.Mesh(pinGeo, pinMat);
+    pin.position.set(1.5 + posX, -1.3, -0.5);
+    timelineRail.add(pin);
   });
 
-  scene.add(milestonePillars);
-
-  // 9. Ambient Starfield / Spatial Grid Particles
-  const particleCount = 180;
-  const posArray = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount * 3; i += 3) {
-    posArray[i] = (Math.random() - 0.5) * 16;
-    posArray[i + 1] = (Math.random() - 0.5) * 16;
-    posArray[i + 2] = (Math.random() - 0.5) * 12 - 2;
-  }
-  const particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
-  const particleMat = new THREE.PointsMaterial({
-    size: 0.035,
-    color: 0x42c8ff,
-    transparent: true,
-    opacity: isDark ? 0.6 : 0.4,
-  });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
+  scene.add(timelineRail);
 
   // Resize handler
   const resize = (width: number, height: number) => {
@@ -288,10 +286,17 @@ export function createDigitalWorkspace(
 
   // Update theme colors
   const updateTheme = (dark: boolean) => {
-    ambientLight.color.setHex(dark ? 0x0a1220 : 0xd0e0ff);
-    ambientLight.intensity = dark ? 1.5 : 2.0;
-    innerMat.color.setHex(dark ? 0x1a6ef7 : 0x2563eb);
-    particleMat.opacity = dark ? 0.6 : 0.35;
+    ambientLight.color.setHex(dark ? 0x172033 : 0xf1f5f9);
+    ambientLight.intensity = dark ? 1.6 : 2.2;
+    keyLight.intensity = dark ? 2.4 : 2.8;
+    baseMat.color.setHex(dark ? 0x151f30 : 0xe8e6df);
+    railMat.color.setHex(dark ? 0x223147 : 0xd2cfc6);
+    browserBezelMat.color.setHex(dark ? 0x1c2738 : 0xffffff);
+    topBarMat.color.setHex(dark ? 0x141d2b : 0xeef2f7);
+    urlBarMat.color.setHex(dark ? 0x223045 : 0xdfe6f0);
+    blockMat1.color.setHex(dark ? 0x1e2c40 : 0xdde3ec);
+    blockMat3.color.setHex(dark ? 0x273852 : 0xc6d0df);
+    tTrackMat.color.setHex(dark ? 0x25354c : 0xcbd5e1);
   };
 
   // Render loop
@@ -300,7 +305,7 @@ export function createDigitalWorkspace(
     renderer.render(scene, camera);
   };
 
-  // Comprehensive disposal
+  // Comprehensive resource disposal
   const dispose = () => {
     scene.traverse((obj) => {
       if ((obj as THREE.Mesh).isMesh) {
@@ -315,6 +320,7 @@ export function createDigitalWorkspace(
         }
       }
     });
+    screenTexture.dispose();
     renderer.dispose();
   };
 
@@ -322,14 +328,14 @@ export function createDigitalWorkspace(
     scene,
     camera,
     renderer,
-    centralCore,
+    workbenchBase,
+    featuredFrame,
     projectScreens,
-    dataPathways,
-    milestonePillars,
-    particles,
+    systemBlocks,
+    timelineRail,
     ambientLight,
     keyLight,
-    corePointLight,
+    rimLight,
     cameraTarget,
     dispose,
     updateTheme,

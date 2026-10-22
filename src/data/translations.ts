@@ -150,7 +150,7 @@ export const translations: Record<Language, TranslationStrings> = {
     contact_eyebrow: "06 / KOLABORASI",
     contact_title: "Mari Bangun Sesuatu yang Berdampak",
     contact_sub:
-      "Saya aktif membuka peluang kerja penuh waktu sebagai Web Developer / Full Stack Engineer. Baik untuk mendiskusikan peluang karir, project baru, atau sekadar bertukar wawasan teknis — inbox saya selalu terbuka.",
+      "Saya aktif membuka peluang kerja penuh waktu sebagai Web Developer / Full Stack Engineer. Baik untuk mendiskusikan peluang karir, project baru, atau sekadar bertukar wawasan teknis, inbox saya selalu terbuka.",
     contact_email_label: "Kirim Email Langsung",
     contact_copy_email: "Salin Email",
     contact_copied_email: "Email Tersalin!",
@@ -160,7 +160,7 @@ export const translations: Record<Language, TranslationStrings> = {
     contact_linkedin_label: "LinkedIn Profile",
 
     footer_text:
-      "Dirancang & Dibangun oleh Rafi Alif Azhar — Karawang, Indonesia © 2026",
+      "Dirancang & Dibangun oleh Rafi Alif Azhar, Karawang, Indonesia © 2026",
 
     theme_dark: "Mode Gelap",
     theme_light: "Mode Terang",
@@ -233,7 +233,7 @@ export const translations: Record<Language, TranslationStrings> = {
     contact_eyebrow: "06 / COLLABORATE",
     contact_title: "Let's Build Something Impactful",
     contact_sub:
-      "I am actively seeking full-time roles as a Web Developer / Full Stack Software Engineer. Whether you have an open opportunity, an interesting project, or simply want to connect — my inbox is always open.",
+      "I am actively seeking full-time roles as a Web Developer / Full Stack Software Engineer. Whether you have an open opportunity, an interesting project, or simply want to connect, my inbox is always open.",
     contact_email_label: "Direct Email",
     contact_copy_email: "Copy Email",
     contact_copied_email: "Copied!",
@@ -243,7 +243,7 @@ export const translations: Record<Language, TranslationStrings> = {
     contact_linkedin_label: "LinkedIn Profile",
 
     footer_text:
-      "Designed & Engineered by Rafi Alif Azhar — Karawang, Indonesia © 2026",
+      "Designed & Engineered by Rafi Alif Azhar, Karawang, Indonesia © 2026",
 
     theme_dark: "Dark Mode",
     theme_light: "Light Mode",

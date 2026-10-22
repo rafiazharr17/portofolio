@@ -39,10 +39,10 @@ export function SkillsSection() {
           return (
             <div
               key={category.id}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-xs hover:border-[var(--primary)]/30 transition-all duration-300"
+              className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-7 shadow-xs hover:border-[var(--primary)]/50 transition-colors duration-200"
             >
               <div className="flex items-center gap-3 mb-5 pb-3 border-b border-[var(--border)]">
-                <div className="w-9 h-9 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-md bg-[var(--surface-muted)] text-[var(--primary)] border border-[var(--border)] flex items-center justify-center">
                   <Icon className="w-4 h-4" />
                 </div>
                 <h3 className="text-base font-bold text-[var(--foreground)] tracking-tight">

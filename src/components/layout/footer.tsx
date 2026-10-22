@@ -26,7 +26,7 @@ export function Footer() {
           {/* Left branding */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-xl bg-[var(--primary)] text-white flex items-center justify-center font-mono text-sm font-bold shadow-xs">
+              <span className="w-8 h-8 rounded-md bg-[var(--surface)] border border-[var(--border)] text-[var(--primary)] flex items-center justify-center font-mono text-xs font-bold shadow-xs">
                 RA
               </span>
               <span className="font-bold text-base tracking-tight text-[var(--foreground)]">
@@ -34,18 +34,18 @@ export function Footer() {
               </span>
             </div>
             <p className="text-xs text-[var(--muted)] max-w-sm">
-              Full Stack Web Developer &bull; Karawang, Jawa Barat, Indonesia
+              Web Developer &bull; Karawang, Jawa Barat, Indonesia
             </p>
           </div>
 
           {/* Social links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <a
               href={profileData.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
-              className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+              className="w-9 h-9 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-colors shadow-xs"
             >
               <GithubIcon className="w-4 h-4" />
             </a>
@@ -54,14 +54,14 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
-              className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+              className="w-9 h-9 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-colors shadow-xs"
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${profileData.email}`}
               aria-label="Kirim Email"
-              className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+              className="w-9 h-9 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-colors shadow-xs"
             >
               <Mail className="w-4 h-4" />
             </a>
@@ -70,7 +70,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+              className="w-9 h-9 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:text-[var(--primary)] hover:border-[var(--primary)] flex items-center justify-center transition-colors shadow-xs"
             >
               <WhatsappIcon className="w-4 h-4" />
             </a>
@@ -81,10 +81,10 @@ export function Footer() {
             type="button"
             onClick={scrollToTop}
             aria-label="Kembali ke atas halaman"
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--surface)] text-xs font-mono font-medium text-[var(--foreground)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-200 cursor-pointer shadow-xs"
+            className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--surface)] text-xs font-mono font-medium text-[var(--foreground)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors cursor-pointer shadow-xs"
           >
             <span>Top</span>
-            <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
+            <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>
 

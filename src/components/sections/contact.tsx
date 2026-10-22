@@ -28,13 +28,10 @@ export function ContactSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         {/* Main Contact Card */}
-        <div className="lg:col-span-7 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-8 sm:p-10 flex flex-col justify-between shadow-sm relative overflow-hidden">
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[var(--primary)]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
-
+        <div className="lg:col-span-7 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-7 sm:p-9 flex flex-col justify-between shadow-xs relative">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono font-medium border border-emerald-500/20 mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[var(--surface-muted)] text-[var(--foreground)] text-xs font-mono font-medium border border-[var(--border)] mb-6 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>
                 {lang === "id"
                   ? "Respon Cepat: Biasanya < 24 Jam"
@@ -59,7 +56,7 @@ export function ContactSection() {
           <div className="pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <a
               href={`mailto:${profileData.email}`}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-strong)] active:scale-98 transition-all duration-200 shadow-md"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md bg-[var(--primary)] text-white font-medium text-sm hover:bg-[var(--primary-strong)] active:scale-98 transition-colors shadow-xs"
             >
               <Send className="w-4 h-4" />
               <span>{profileData.email}</span>
@@ -69,7 +66,7 @@ export function ContactSection() {
               type="button"
               onClick={copyEmail}
               aria-label="Salin alamat email"
-              className="inline-flex items-center justify-center gap-2 px-5 py-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground)] font-semibold text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-98 transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] font-medium text-sm hover:border-[var(--primary)] hover:text-[var(--primary)] active:scale-98 transition-colors cursor-pointer shadow-xs"
             >
               {copied ? (
                 <>
@@ -89,20 +86,20 @@ export function ContactSection() {
         </div>
 
         {/* Secondary Channels Cards */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
+        <div className="lg:col-span-5 flex flex-col gap-3.5">
           {/* WhatsApp Card */}
           <a
             href={profileData.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-6 rounded-2xl border border-[var(--border)] bg-[var(--surface)] hover:border-emerald-500/40 hover:shadow-md transition-all duration-300 flex items-center justify-between"
+            className="group p-5 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:border-emerald-500/50 shadow-xs transition-colors flex items-center justify-between"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <WhatsappIcon className="w-6 h-6" />
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center transition-colors">
+                <WhatsappIcon className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-base font-bold text-[var(--foreground)] group-hover:text-emerald-500 transition-colors">
+                <h4 className="text-sm font-bold text-[var(--foreground)] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   WhatsApp
                 </h4>
                 <p className="text-xs text-[var(--muted)] font-mono">
@@ -110,7 +107,7 @@ export function ContactSection() {
                 </p>
               </div>
             </div>
-            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all" />
+            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
           </a>
 
           {/* LinkedIn Card */}
@@ -118,14 +115,14 @@ export function ContactSection() {
             href={profileData.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-6 rounded-2xl border border-[var(--border)] bg-[var(--surface)] hover:border-blue-500/40 hover:shadow-md transition-all duration-300 flex items-center justify-between"
+            className="group p-5 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--primary)] shadow-xs transition-colors flex items-center justify-between"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <LinkedinIcon className="w-6 h-6" />
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-md bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center transition-colors">
+                <LinkedinIcon className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-base font-bold text-[var(--foreground)] group-hover:text-blue-500 transition-colors">
+                <h4 className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
                   LinkedIn
                 </h4>
                 <p className="text-xs text-[var(--muted)] font-mono">
@@ -133,7 +130,7 @@ export function ContactSection() {
                 </p>
               </div>
             </div>
-            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--primary)] transition-colors" />
           </a>
 
           {/* GitHub Card */}
@@ -141,14 +138,14 @@ export function ContactSection() {
             href={profileData.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-6 rounded-2xl border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--primary)] hover:shadow-md transition-all duration-300 flex items-center justify-between"
+            className="group p-5 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--foreground)] shadow-xs transition-colors flex items-center justify-between"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] flex items-center justify-center group-hover:scale-105 transition-transform">
-                <GithubIcon className="w-6 h-6" />
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-md bg-[var(--surface-muted)] text-[var(--foreground)] border border-[var(--border)] flex items-center justify-center transition-colors">
+                <GithubIcon className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
+                <h4 className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
                   GitHub
                 </h4>
                 <p className="text-xs text-[var(--muted)] font-mono">
@@ -156,7 +153,7 @@ export function ContactSection() {
                 </p>
               </div>
             </div>
-            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all" />
+            <ExternalLink className="w-4 h-4 text-[var(--muted)] group-hover:text-[var(--primary)] transition-colors" />
           </a>
         </div>
       </div>

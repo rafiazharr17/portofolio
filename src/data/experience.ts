@@ -24,7 +24,7 @@ export const timelineData: TimelineItem[] = [
       id: "MIS / IT Staff Intern",
       en: "MIS / IT Staff Intern",
     },
-    organization: "PT. Inoac Polytechno Indonesia — Karawang Plant",
+    organization: "PT. Inoac Polytechno Indonesia, Karawang Plant",
     period: {
       id: "Agu 2026 – Sekarang",
       en: "Aug 2026 – Present",
@@ -67,8 +67,8 @@ export const timelineData: TimelineItem[] = [
     id: "umy-final-project",
     type: "work",
     role: {
-      id: "Full Stack Web Developer — Tugas Akhir",
-      en: "Full Stack Web Developer — Capstone Project",
+      id: "Full Stack Web Developer (Tugas Akhir)",
+      en: "Full Stack Web Developer (Capstone Project)",
     },
     organization: "Universitas Muhammadiyah Yogyakarta",
     period: {
@@ -117,8 +117,8 @@ export const timelineData: TimelineItem[] = [
     id: "lab-assistant",
     type: "work",
     role: {
-      id: "Asisten Laboratorium — Basis Data",
-      en: "Laboratory Assistant — Database Systems",
+      id: "Asisten Laboratorium: Basis Data",
+      en: "Laboratory Assistant: Database Systems",
     },
     organization: "Universitas Muhammadiyah Yogyakarta",
     period: {

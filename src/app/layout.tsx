@@ -28,11 +28,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Rafi Alif Azhar — Full Stack Web Developer",
+    default: "Rafi Alif Azhar: Full Stack Web Developer",
     template: "%s | Rafi Alif Azhar",
   },
   description:
-    "Portfolio Rafi Alif Azhar — Full Stack Web Developer spesialis Python Django, Node.js, Express, React.js, & Laravel. Bersertifikasi BNSP & Certiport.",
+    "Portfolio Rafi Alif Azhar, Full Stack Web Developer spesialis Python Django, Node.js, Express, React.js, dan Laravel. Bersertifikasi BNSP dan Certiport.",
   keywords: [
     "Rafi Alif Azhar",
     "Full Stack Developer",
@@ -59,22 +59,22 @@ export const metadata: Metadata = {
     locale: "id_ID",
     alternateLocale: "en_US",
     url: "/",
-    title: "Rafi Alif Azhar — Full Stack Web Developer",
+    title: "Rafi Alif Azhar: Full Stack Web Developer",
     description:
-      "Portfolio Rafi Alif Azhar — Full Stack Web Developer spesialis Python Django, Node.js, Express, React.js, & Laravel. Lihat proyek, sertifikasi BNSP & Certiport, dan pengalaman.",
+      "Portfolio Rafi Alif Azhar, Full Stack Web Developer spesialis Python Django, Node.js, Express, React.js, dan Laravel. Lihat proyek, sertifikasi BNSP dan Certiport, dan pengalaman.",
     siteName: "Portfolio Rafi Alif Azhar",
     images: [
       {
         url: "/images/profile/photo-desktop.webp",
         width: 1200,
         height: 630,
-        alt: "Rafi Alif Azhar — Full Stack Web Developer",
+        alt: "Rafi Alif Azhar: Full Stack Web Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rafi Alif Azhar — Full Stack Web Developer",
+    title: "Rafi Alif Azhar: Full Stack Web Developer",
     description:
       "Full Stack Web Developer berbasis di Karawang, Jawa Barat. Spesialis Django, Node.js, React & Laravel.",
     images: ["/images/profile/photo-desktop.webp"],
