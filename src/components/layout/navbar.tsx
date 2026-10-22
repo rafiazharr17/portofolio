@@ -5,6 +5,7 @@ import { Menu, Sparkles, Send } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { MobileNav } from "./mobile-nav";
+import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 import { useLanguage } from "@/hooks/use-language";
 import { cn } from "@/lib/utils";
 
@@ -79,6 +80,7 @@ export function Navbar() {
 
   return (
     <>
+      <ScrollProgressBar />
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
@@ -121,6 +123,7 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={() => setActiveSection(secId)}
                   className={cn(
                     "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--primary)]",
                     isActive
