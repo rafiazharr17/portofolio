@@ -26,6 +26,9 @@ export function createDigitalWorkspace(
 ): WorkspaceObjects {
   const scene = new THREE.Scene();
 
+  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024;
+  const isTablet = typeof window !== "undefined" && window.innerWidth >= 640 && window.innerWidth < 1024;
+
   // Perspective Camera
   const camera = new THREE.PerspectiveCamera(
     42,
@@ -33,8 +36,19 @@ export function createDigitalWorkspace(
     0.1,
     100
   );
-  camera.position.set(0, 2.0, 6.4);
-  const cameraTarget = new THREE.Vector3(0.5, 0.1, 0);
+  if (isDesktop) {
+    camera.position.set(0, 2.0, 6.4);
+  } else if (isTablet) {
+    camera.position.set(0, 1.6, 6.2);
+  } else {
+    camera.position.set(0, 1.3, 6.0);
+  }
+
+  const cameraTarget = new THREE.Vector3(
+    isDesktop ? 0.5 : 0,
+    isDesktop ? 0.1 : (isTablet ? -0.2 : -0.4),
+    0
+  );
 
   const renderer = new THREE.WebGLRenderer({
     canvas,
@@ -64,12 +78,17 @@ export function createDigitalWorkspace(
 
   const textureLoader = new THREE.TextureLoader();
 
-  // Master Workbench Group - Offset to the right side on desktop
+  // Master Workbench Group - Responsive position and scale
   const workbenchGroup = new THREE.Group();
-  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024;
-  workbenchGroup.position.set(isDesktop ? 2.6 : 0, isDesktop ? 0.0 : -3.0, isDesktop ? 0 : -1.8);
-  if (!isDesktop) {
-    workbenchGroup.scale.set(0.75, 0.75, 0.75);
+  if (isDesktop) {
+    workbenchGroup.position.set(2.6, 0.0, 0);
+    workbenchGroup.scale.set(1.0, 1.0, 1.0);
+  } else if (isTablet) {
+    workbenchGroup.position.set(0, -0.3, 0);
+    workbenchGroup.scale.set(0.65, 0.65, 0.65);
+  } else {
+    workbenchGroup.position.set(0, -0.5, 0);
+    workbenchGroup.scale.set(0.42, 0.42, 0.42);
   }
 
   // 1. Workbench Board: Architectural matte slab (no giant electric-blue overlay)
@@ -263,9 +282,21 @@ export function createDigitalWorkspace(
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const desktop = width >= 1024;
-    workbenchGroup.position.set(desktop ? 2.6 : 0, desktop ? 0.0 : -3.2, desktop ? 0 : -2.0);
-    workbenchGroup.scale.set(desktop ? 1.0 : 0.7, desktop ? 1.0 : 0.7, desktop ? 1.0 : 0.7);
-    cameraTarget.set(desktop ? 0.5 : 0, 0.1, 0);
+    const tablet = width >= 640 && width < 1024;
+
+    if (desktop) {
+      workbenchGroup.position.set(2.6, 0.0, 0);
+      workbenchGroup.scale.set(1.0, 1.0, 1.0);
+      cameraTarget.set(0.5, 0.1, 0);
+    } else if (tablet) {
+      workbenchGroup.position.set(0, -0.3, 0);
+      workbenchGroup.scale.set(0.65, 0.65, 0.65);
+      cameraTarget.set(0, -0.2, 0);
+    } else {
+      workbenchGroup.position.set(0, -0.5, 0);
+      workbenchGroup.scale.set(0.42, 0.42, 0.42);
+      cameraTarget.set(0, -0.4, 0);
+    }
   };
 
   // Theme Update
